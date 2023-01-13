@@ -1,7 +1,13 @@
 <!-- 搜索页 -->
 <template>
-	<view>
-		
+	<view class="search-box">
+		<view class="search-box-back">
+			<view><</view>
+			<view>搜索</view>
+		</view>
+		<view class="search-box-input">
+		   搜索地址
+		</view>
 	</view>
 </template>
 
@@ -19,5 +25,30 @@
 </script>
 
 <style>
-
+.search-box{
+	width: 100%;
+	background-color: lightgray;
+}
+.search-box-back{
+	width: 100%;
+	height: 44px;
+	padding: 0px 10px;
+	box-sizing: border-box;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-between;
+	background-color: royalblue;
+	color: white;
+	align-items: center;
+}
+.search-box-back>view:nth-child(2){
+	width: 95%;
+	text-align: center;
+}
+.search-box-input{
+	width: 100%;
+	padding: 45px 10px 5px 10px;
+	background-color: white;
+}
 </style>
