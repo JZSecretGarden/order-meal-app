@@ -1,7 +1,7 @@
 <!-- 我的页面 -->
 <template>
 	<view>
-		
+		<u-icon name="photo"></u-icon>
 	</view>
 </template>
 
