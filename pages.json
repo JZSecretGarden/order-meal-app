@@ -27,8 +27,11 @@
             "path" : "pages/order/order",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "订单列表",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190E8",
+				"navigationBarTextStyle": "white"
+				
             }
             
         }

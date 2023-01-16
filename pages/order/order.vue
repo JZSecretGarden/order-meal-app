@@ -1,12 +1,16 @@
 <!-- 订单页 -->
 <template>
-	<view>
-		
+	<view class="container">
+		<OrderListItem></OrderListItem>
 	</view>
 </template>
 
 <script>
+	import OrderListItem from '../../components/order-list-item/order-list-item.vue'
 	export default {
+		components:{
+			OrderListItem
+		},
 		data() {
 			return {
 				
@@ -18,6 +22,9 @@
 	}
 </script>
 
-<style>
-
+<style scoped>
+	.container{
+		background-color: #F5F5F5;
+		height: 100vh;
+	}
 </style>
