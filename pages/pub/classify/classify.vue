@@ -113,7 +113,7 @@
 			}
 		},
 		onLoad() {
-			$commodity_list().then((el) => {
+			$commodity_list({restaurant_id:1}).then((el) => {
 				this.list = el.data
 				console.log(this.list)
 			})
