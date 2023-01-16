@@ -21,18 +21,17 @@
 			<swiper-item>
 				<view class="swiper-item commodity">
 					<!-- 左菜单 -->
-					<scroll-view class="left-menu" scroll-y="true">
+					<scroll-view class="left-menu" scroll-y="true" :scroll-with-animation='true' :scroll-top='leftMenuScroll'>
 						<!-- 菜单元素 -->
-						<view class="left-menu-text" :class="{'left-menu-active':leftMenuIndex==index}"
-							v-for="(item,index) in list" @tap="clickLeftMenu(index)">
+						<view class="left-menu-text" :class="{'left-menu-active':leftMenuIndex==index}" v-for="(item,index) in list" @tap="clickLeftMenu(index)">
 							<view class="menu-dir" :class="{'active-menu-dir':leftMenuIndex==index}"></view>
 							<text>{{item.name}}</text>
 						</view>
 					</scroll-view>
 					<!-- 右商品列表 -->
-					<scroll-view class="right-commodity" scroll-y="true">
+					<scroll-view class="right-commodity" scroll-y="true" :scroll-with-animation='true' :scroll-top='rightCommodityScroll' @scroll="scrollRight">
 						<!-- 商品分类卡片 -->
-						<view class="commodity-card" v-for="item in list">
+						<view class="commodity-card" v-for="(item,index) in list" :key="index">
 							<!-- 标题 -->
 							<view class="title-row">
 								<text class="title">{{item.name}}</text>
@@ -89,16 +88,19 @@
 </template>
 
 <script>
-	import {
-		$commodity_list
-	} from 'apis/jz-port.js'
+	import {$commodity_list} from 'apis/jz-port.js'
+import { nextTick } from "vue"
 	export default {
 		data() {
 			return {
 				tabData: ['商品', '评价'],
 				tabActiveIndex: 0, //选中tab下标
 				list: [],
-				leftMenuIndex: 0 //选中左菜单的下标
+				leftMenuIndex: 0 ,//选中左菜单的下标
+				cardTop:[] ,//商品卡片距离顶部的距离
+				menuTop:[] ,//菜单距离顶部的距离
+				leftMenuScroll:0,
+				rightCommodityScroll:0
 			}
 		},
 		methods: {
@@ -110,13 +112,39 @@
 			},
 			clickLeftMenu(index) { //点击左侧菜单元素
 				this.leftMenuIndex = index
+				this.rightCommodityScroll = this.cardTop[index]
+			},
+			getCommodityPosition(){	//获取商品卡片位置信息与菜单位置信息
+				uni.createSelectorQuery().in(this).selectAll('.commodity-card').boundingClientRect(data=>{
+					data.forEach(el=>{
+						this.cardTop.push(el.top-143)
+					})
+				}).selectAll('.left-menu-text').boundingClientRect(data=>{
+					data.forEach(el=>{
+						this.menuTop.push(el.top-143)
+					})
+				}).exec()
+			},
+			scrollRight(el){	//滚动右侧菜单
+				for(let i=0; i<this.cardTop.length; i++){
+					if(el.detail.scrollTop>=this.cardTop[i]&&el.detail.scrollTop<this.cardTop[i+1]){
+						this.leftMenuScroll=this.menuTop[i] 
+						this.leftMenuIndex=i;
+					} 
+				}
 			}
 		},
 		onLoad() {
+			//请求商品数据
 			$commodity_list({restaurant_id:1}).then((el) => {
 				this.list = el.data
-				console.log(this.list)
+				this.$nextTick(function(){
+					this.getCommodityPosition()
+				})
 			})
+		},
+		onReady() {
+		
 		}
 	}
 </script>
