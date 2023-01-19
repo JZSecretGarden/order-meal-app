@@ -73,7 +73,8 @@
 													￥{{commodity.specfoods[0].price}}
 												</view>
 												<view class="btn-box">
-													<view v-show="commodityNum(commodity)>0" class="minus-btn">-</view>
+													<view v-if="commodity.specfoods.length==1" v-show="commodityNum(commodity)>0" class="minus-btn" @click="minusOne(commodity)">-</view>
+													<view v-if="commodity.specfoods.length>1" v-show="commodityNum(commodity)>0" class="minus-btn" @click="minusMore(commodity)">-</view>
 													<view v-show="commodityNum(commodity)>0" class="btn-box-num">{{commodityNum(commodity)}}</view>
 													<view v-if="commodity.specfoods.length==1" class="add-btn add-one" @click="addOne(commodity)">+</view>
 													<view v-if="commodity.specfoods.length>1" class="add-btn add-more" @click="addMore(commodity)">选规格</view>
@@ -92,36 +93,36 @@
 			</swiper-item>
 		</swiper>
 		<!-- 底部购物车 -->
-		<view class="floor-car">
-			<view class="floor-img">
-				<text class="count-num" >1</text>
+		<view class="floor-car" v-show="tabActiveIndex==0">
+			<view class="floor-img" @click="openCarPop">
+				<text class="count-num" v-show="carCount>0" >{{carCount}}</text>
 				<image  src="../../../static/logo.png" mode="aspectFill"></image>
 			</view>
 			<view class="price-box">
-				<view style="font-size: 20px;font-weight: bold;">¥20.00</view>
+				<view style="font-size: 20px;font-weight: bold;">¥{{totalCarPrice}}</view>
 				<view>配送费¥5</view>
 			</view>
-			<view class="over-btn">去结算</view >
+			<view class="over-btn" @click="goToBuy">去结算</view >
 		</view>
 		<!-- 购物车弹窗 -->
-		<view v-show="carPopShow" class="car-pop pop">
-			<view class="car-wrap">
+		<view v-show="carPopShow" class="car-pop pop" @click="closeCarPop">
+			<view class="car-wrap" @click.stop=''>
 				<view class="car-title">
 					<view style="font-size: 36upx;">购物车</view>
 					<view class="">清空</view>
 				</view>
 				<!-- 购物车内容 -->
 				<view class="car-cont">
-					<view class="car-item-row">
+					<view class="car-item-row" v-for="(item,index) in carData" :key="item._id">
 						<view class="car-item-title-box">
-							<view class="car-item-title">ee</view>
-							<view class="car-item-des">123</view>
+							<view class="car-item-title">{{item.name}}</view>
+							<view class="car-item-des">{{item.specs_name}}</view>
 						</view>
-						<view class="car-item-price">￥20</view>
+						<view class="car-item-price">￥{{item.price}}</view>
 						<view class="btn-box">
-							<view  class="minus-btn">-</view>
-							<view  class="btn-box-num">1</view>
-							<view  class="add-btn add-one">+</view>
+							<view  class="minus-btn" @click="minusCarData(item,index)">-</view>
+							<view  class="btn-box-num">{{item.num}}</view>
+							<view  class="add-btn add-one" @click="addCarData(item,index)">+</view>
 						</view>
 					</view>
 				</view>
@@ -175,6 +176,16 @@ import { nextTick } from "vue"
 					com.specfoods.forEach(el=> num = num + el.num)
 					return num
 				}
+			},
+			carCount(){
+				let num = 0;
+				this.carData.forEach(el=>num = num + el.num)
+				return num
+			},
+			totalCarPrice(){
+				let totalPrice = 0
+				this.carData.forEach(el=>totalPrice += el.price)
+				return totalPrice
 			}
 		},
 		methods: {
@@ -210,27 +221,28 @@ import { nextTick } from "vue"
 			},
 			addOne(data){	//增加单个商品数量
 				let selectCom = data.specfoods[0]
-				if(this.carData.includes(selectCom)){
-					selectCom.num++
-				}else{
-					selectCom.num=1
-					this.carData.push(selectCom)		
-				}
-				console.log(this.carData)
+				selectCom.num++
+				if(!this.carData.includes(selectCom)) this.carData.push(selectCom)
+			},
+			minusOne(data){	//减少单个商品数量
+				let selectCom = data.specfoods[0]
+				selectCom.num--
+				if(selectCom.num==0) this.carData.splice(this.carData.indexOf(selectCom),1)
 			},
 			addMore(data){	//将多个商品的数据存放进容器中
 				this.moreCommodityData = data.specfoods
 				this.morePopShow = true
 				console.log(this.moreCommodityData)
 			},
+			minusMore(){	//减少多规格商品
+				uni.showToast({
+					title:'请在购物车界面删除多规格商品'
+				})
+			},
 			addMoreToCar(){	//将选中的多规格商品加入购物车
 				let selectCom = this.moreCommodityData[this.moreActiveIndex]
-				if(this.carData.includes(selectCom)){
-					selectCom.num++
-				}else{
-					selectCom.num=1
-					this.carData.push(selectCom)		
-				}
+				selectCom.num++
+				if(!this.carData.includes(selectCom)) this.carData.push(selectCom)		
 				this.closeMorePop()	//关闭多规格弹窗
 			},
 			closeMorePop(){	//关闭多规格弹窗
@@ -238,9 +250,25 @@ import { nextTick } from "vue"
 				this.moreCommodityData = []
 			},
 			selectMore(index){	//选中多规格商品
-				this.moreActiveIndex = index
-				console.log(this.moreActiveIndex)
-				console.log(this.moreCommodityData)
+				this.moreActiveIndex = index	
+			},
+			openCarPop(){		//打开购物车弹窗
+				this.carPopShow = true
+				console.log(this.carData)
+			},
+			closeCarPop(){	//关闭购物车弹窗
+				this.carPopShow = false
+			},
+			minusCarData(data,index){	//购物车内减少商品
+				console.log(data,index)
+				data.num--
+				if(data.num<=0) this.carData.splice(index,1)
+			},
+			addCarData(data,index){	//购物车内增加商品
+				data.num++
+			},
+			goToBuy(){	//去结算
+				this.carData.length == 0? uni.showToast({title:'请选择商品'}) : console.log(this.carData,'去结算')
 			}
 		},
 		onLoad() {
@@ -250,7 +278,6 @@ import { nextTick } from "vue"
 					item.foods.forEach(food=>food.specfoods.forEach(specfood=>specfood.num=0))
 				})
 				this.list = el.data
-				console.log(this.list)
 				this.$nextTick(function(){
 					this.getCommodityPosition() //获取页面节点信息
 				})
