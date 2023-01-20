@@ -3,15 +3,7 @@
 			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 		},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	{
-	    "path" : "pages/pub/classify/classify",
-	    "style" :                                                                                    
-	    {
-	        "navigationBarTitleText": "分类",
-	        "enablePullDownRefresh": false
-	    }
-	    
-	},
+	
 		{
             "path" : "pages/home/home",
             "style" :                                                                                    
@@ -23,6 +15,14 @@
             
         }
         ,{
+	    "path" : "pages/pub/classify/classify",
+	    "style" :                                                                                    
+	    {
+	        "navigationBarTitleText": "分类",
+	        "enablePullDownRefresh": false
+	    }
+	    
+	},{
             "path" : "pages/search/search",
             "style" :                                                                                    
             {
@@ -84,6 +84,35 @@
             
         }
 				
+        ,{
+            "path" : "pages/pub/points/points",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "积分商城",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/pub/member/member",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "会员中心",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190E8",
+				"navigationBarTextStyle": "white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/pub/service-center/service-center",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "服务中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

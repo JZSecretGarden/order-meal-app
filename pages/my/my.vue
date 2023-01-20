@@ -47,11 +47,11 @@
 		</view>
 		<view class="main-mid">
 			<MyListItem url='/pages/order/order' pic='../../static/my/order.png' txt="我的订单"></MyListItem>
-			<MyListItem pic='../../static/my/points.png' txt="积分商城"></MyListItem>
-			<MyListItem pic='../../static/my/crown.png' txt="饿了么会员卡"></MyListItem>
+			<MyListItem url='/pages/pub/points/points' pic='../../static/my/points.png' txt="积分商城"></MyListItem>
+			<MyListItem url='/pages/pub/member/member' pic='../../static/my/crown.png' txt="饿了么会员卡"></MyListItem>
 		</view>
 		<view class="main-mid">
-			<MyListItem pic='../../static/my/squre.png' txt="服务中心"></MyListItem>
+			<MyListItem url='/pages/pub/service-center/service-center' pic='../../static/my/squre.png' txt="服务中心"></MyListItem>
 			<MyListItem pic='../../static/my/eleme.png' txt="下载饿了么APP"></MyListItem>
 		</view>
 	</view>
