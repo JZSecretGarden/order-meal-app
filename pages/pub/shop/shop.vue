@@ -88,8 +88,79 @@
 					</view>
 				</view>			
 			</swiper-item>
+			<!-- 评论页面 -->
 			<swiper-item>
-				<view class="swiper-item evaluate">2</view>
+				<scroll-view style="height: 100%;" scroll-y="true" @scrolltolower="evaluateScrollToLower">
+					<view class="swiper-item evaluate">
+						<!-- 评价总分模块 -->
+						<view class="evaluate-grade">
+							<view class="garde-left">
+								<view class="garde-num">4.7</view>
+								<view class="">综合评价</view>
+								<view class="garde-hint">高于周边商家76.9%</view>
+							</view>
+							<view class="garde-right">
+								<view class="garde-right-row">
+									<text class="garde-row-item garde-row-title">服务态度</text>
+									<view class="star-box">
+										<text class="garde-row-item" style="font-size: 24upx;">⭐</text>
+										<text class="garde-row-item" style="font-size: 24upx;">⭐</text> 
+										<text class="garde-row-item" style="font-size: 24upx;">⭐</text> 
+									</view>								
+									<text class="garde-row-item" style="font-size: 28upx;color: #f60;">4.7</text>
+								</view>
+								<view class="garde-right-row">
+									<text class="garde-row-item garde-row-title">菜品评价</text>
+									<view class="star-box">
+										<text class="garde-row-item" style="font-size: 24upx;">⭐</text>
+										<text class="garde-row-item" style="font-size: 24upx;">⭐</text> 
+										<text class="garde-row-item" style="font-size: 24upx;">⭐</text> 
+									</view>								
+									<text class="garde-row-item" style="font-size: 28upx;color: #f60;">4.7</text>
+								</view>
+								<view class="garde-right-row">
+									<text class="garde-row-item garde-row-title">送达时间</text>				
+									<text class="garde-row-item" style="font-size: 24upx;color: #666;">分钟</text>
+								</view>
+							</view>
+						</view>
+						<!-- 评价内容模块-->
+						<view class="evaluate-content">
+							<!-- 评价分类 -->
+							<view class="evaluate-class">
+								<view class="evaluate-item" :class="{'active-evaluate':evaluateActive==index,'disable-evalute':index==2}" v-for="(item,index) in evaluateClass" @click="selectEvaluate(index)">{{item.name}}({{item.count}})</view>
+							</view>
+							<!-- 评价文章 -->
+							<view class="evaluate-article">
+								<!-- 单个文章板块 -->
+								<view class="evaluate-article-item" v-for="item in evaluateContent">
+									<!-- 头像包 -->
+									<view class="evaluate-image-box">
+										<image :src="'https://elm.cangdu.org/'+item.avatar+'.jpeg'" mode="aspectFill"></image>
+									</view>
+									<!-- 内容包 -->
+									<view class="content-box">
+										<view class="name-time-row">
+											<text>{{item.username}}</text>
+											<text style="color: #999;">{{item.rated_at}}</text>
+										</view>
+										<view class="evaluate-star-row">
+											<text v-for="cont in item.rating_star">⭐</text>
+											<text style="margin-left: 10upx;">{{item.time_spent_desc}}</text>
+										</view>
+										<view class="commodity-image-row">
+											<image v-for="commodity in item.item_ratings" :src="commodity.image_hash" mode="aspectFill"></image>
+										</view>
+										<view class="evaluate-tag-row">
+											<text class="evaluate-tag-item">超级炸炸炸</text>
+											<text class="evaluate-tag-item">韩式涮涮涮</text>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</scroll-view>
 			</swiper-item>
 		</swiper>
 		<!-- 底部购物车 -->
@@ -109,7 +180,7 @@
 			<view class="car-wrap" @click.stop=''>
 				<view class="car-title">
 					<view style="font-size: 36upx;">购物车</view>
-					<view class="">清空</view>
+					<view class="" @click="clearCarData">清空</view>
 				</view>
 				<!-- 购物车内容 -->
 				<view class="car-cont">
@@ -143,18 +214,18 @@
 				</view>
 			</view>
 		</view>
-	
 	</view>
 </template>
 
 <script>
-	import {$commodity_list} from 'apis/jz-port.js'
-import { nextTick } from "vue"
+	import { $commodity_list , $comment_class, $comment_content } from 'apis/jz-port.js'
+	import { nextTick } from "vue"
 	export default {
 		data() {
 			return {
+				shopId:1,	//商铺id
 				tabData: ['商品', '评价'],
-				tabActiveIndex: 0, //选中tab下标
+				tabActiveIndex:1, //选中tab下标
 				list: [],
 				leftMenuIndex: 0 ,//选中左菜单的下标
 				cardTop:[] ,//商品卡片距离顶部的距离
@@ -165,7 +236,12 @@ import { nextTick } from "vue"
 				moreCommodityData:[] ,//多个商品的数据存放进容器中
 				moreActiveIndex:0, //选中多规格的下标
 				carData:[],
-				carPopShow:false	//控制购物车弹窗显示
+				carPopShow:false,	//控制购物车弹窗显示
+				evaluateClass:[],	//购物车分类容器
+				evaluateActive:0,	//选中评价的下标
+				evaluateContent:[],	//评价容器
+				evaluateContentNum:10, //每次评价内容请求10条
+				evaluateScrollToLowerNum:0, //评价内容滚动底部次数
 			}
 		},
 		computed:{
@@ -177,11 +253,13 @@ import { nextTick } from "vue"
 					return num
 				}
 			},
+			// 购物车计件总数
 			carCount(){
 				let num = 0;
 				this.carData.forEach(el=>num = num + el.num)
 				return num
 			},
+			// 购物车总价
 			totalCarPrice(){
 				let totalPrice = 0
 				this.carData.forEach(el=>totalPrice += el.price)
@@ -269,11 +347,32 @@ import { nextTick } from "vue"
 			},
 			goToBuy(){	//去结算
 				this.carData.length == 0? uni.showToast({title:'请选择商品'}) : console.log(this.carData,'去结算')
+			},
+			clearCarData(){	//清空购物车
+				this.carData.forEach(el=>el.num=0)
+				this.carData = []
+			},
+			reqEvaluateContent(){		//请求评价信息
+				let data = { restaurant_id:this.shopId, tag_name:this.evaluateClass[this.evaluateActive].name, offset:this.evaluateScrollToLowerNum*this.evaluateContentNum, limit:this.evaluateContentNum }
+				$comment_content(this.shopId,data).then((el)=>{
+					this.evaluateContent = this.evaluateContent.concat(el.data) 
+					console.log(this.evaluateContent)
+				})
+			},
+			selectEvaluate(index){	//选择评价分类
+				this.evaluateActive = index
+				this.evaluateContent = [] //初始化容器
+				this.reqEvaluateContent() //请求评价信息
+			},
+			evaluateScrollToLower(){	//评价滚动到底部
+				this.evaluateScrollToLowerNum++
+				this.reqEvaluateContent()
 			}
+		
 		},
 		onLoad() {
 			//请求商品数据
-			$commodity_list({restaurant_id:1}).then((el) => {
+			$commodity_list({restaurant_id:this.shopId}).then((el) => {
 				el.data.forEach(item=>{
 					item.foods.forEach(food=>food.specfoods.forEach(specfood=>specfood.num=0))
 				})
@@ -282,6 +381,14 @@ import { nextTick } from "vue"
 					this.getCommodityPosition() //获取页面节点信息
 				})
 			})
+			//请求评论分类
+			$comment_class(this.shopId).then((el)=>{
+				this.evaluateClass = el.data
+				console.log(this.evaluateClass,this.evaluateClass[this.evaluateActive].name)
+				this.reqEvaluateContent()		//请求评价信息
+			})
+
+			
 		},
 		onReady() {
 		
