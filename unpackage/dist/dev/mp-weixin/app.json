@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/pub/classify/classify",
+    "pages/pub/shop/shop",
+    "pages/home/home",
+    "pages/search/search",
+    "pages/order/order",
+    "pages/my/my",
+    "pages/pub/login/login",
+    "pages/pub/register/register",
+    "pages/fooddeails/fooddeails"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "text": "外卖",
+        "pagePath": "pages/home/home"
+      },
+      {
+        "text": "搜索",
+        "pagePath": "pages/search/search"
+      },
+      {
+        "text": "订单",
+        "pagePath": "pages/order/order"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/my/my"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

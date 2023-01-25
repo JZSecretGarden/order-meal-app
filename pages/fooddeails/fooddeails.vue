@@ -2,7 +2,6 @@
 	<view class="food_container">
 		<view class="food-goback">
 			<view>
-				< </view>
 					<view>甜品</view>
 			</view>
 			<view class="food-sort_container">
@@ -48,7 +47,6 @@
 							</view>
 						</view>
 					</view>
-				</view>
 			    <view class="shop-item">
 			    		<image src="../../static/logo.png"></image>
 			    		<view class="shop-item-right">
@@ -88,10 +86,11 @@
 			    				</view>
 			    			</view>
 			    		</view>
-			    	</view>
-			    
+			    </view> 
+				</view>
 			</view>
 		</view>
+	</view>
 </template>
 
 <script>
