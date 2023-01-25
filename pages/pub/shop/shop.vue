@@ -398,5 +398,4 @@
 
 <style scoped>
 	@import url("shop.css");	
-	/* 已改 */
 </style>
