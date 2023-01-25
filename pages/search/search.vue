@@ -2,7 +2,7 @@
 <template>
 	<view class="search-box">
 		<view class="search-box-back">
-			<view><</view>
+			<view>用图标</view>
 			<view>搜索</view>
 		</view>
 		<view class="search-box-input">
