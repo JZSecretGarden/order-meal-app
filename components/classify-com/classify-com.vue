@@ -12,7 +12,7 @@
 			<view class="pop1 pop" v-show="openPopIndex==0" key="1">
 				<scroll-view scroll-y="true">
 					<view class="pop1-left-menu">
-						<view class="left-menu-item" v-for="(item,index) in classData" :key="item.id">
+						<view class="left-menu-item" v-for="(item,index) in classData" :key="item.id" @click="clickCommodity(item.title)">
 							<image :src="'https://elm.cangdu.org/img'+item.image_url" mode="aspectFill"></image>
 							<text>{{item.title}}</text> 
 							<u-icon class="item-icon" name="arrow-right-double"></u-icon>
@@ -23,7 +23,7 @@
 		<!-- 弹窗2 排序 -->
 			<view class="pop2 pop" v-show="openPopIndex==1" key="2">
 				<view class="sort-list">
-					<view class="sort-item" v-for="(item,index) in sortText" @click="clickSort(index)">
+					<view class="sort-item" v-for="(item,index) in sortText" @click="clickSort(index,item)">
 						<image src="../../static/logo.png" mode="aspectFill"></image>
 						<view class="sort-item-text" :class="{'active-sort-item-text':index==selectSortIndex}" >{{item}}</view>
 						<u-icon v-show="selectSortIndex==index" class="sort-item-active" name="checkbox-mark" color="#3190e8"></u-icon>
@@ -32,32 +32,35 @@
 			</view>
 		<!-- 弹窗3 筛选 -->
 			<view class="pop3 pop" v-show="openPopIndex==2" key="3">
-				<view class="screen-box">
-					<view class="screen-item" v-for="item in screenData">
-						<view class="screen-title">{{item.title}}</view>
-						<view class="screen-child-wrap">
-							<view class="screen-child-item" v-for="child in item.data" >
-								<image :src="child.img" mode=""></image>
-								<text>{{child.text}}</text>
+				<view class="" style="background-color: #fff;">
+					<view class="screen-box">
+						<view class="screen-item" v-for="(item,index) in screenData">
+							<view class="screen-title"><text>{{item.title}}</text><text v-if="item.multiple" >(可以多选)</text></view>
+							<view class="screen-child-wrap">							
+								<view class="screen-child-item" :class="{'active-screen-child':selectScreen[index][c_index]==child.text || selectScreen[index]==child.text}" v-for="(child,c_index) in item.data" @click="clickScreenChild(index,c_index)">
+									<u-icon v-show="selectScreen[index][c_index]==child.text || selectScreen[index]==child.text" class="screen-active-icon" name="checkbox-mark" color="#3190e8" size="18"></u-icon>
+									<image v-show="selectScreen[index][c_index]==null || selectScreen[index]==''" :src="child.img" mode=""></image>
+									<text>{{child.text}}</text>
+								</view>
 							</view>
-						</view>
-					</view>					
-				</view>
-				<view class="screen-btn">
-					<u-button size="default">清空</u-button>
-					<u-button size="default" :custom-style="sureBtn">确定</u-button>
+						</view>					
+					</view>
+					<view class="screen-btn">
+						<u-button size="default" @click="clearAll" >清空</u-button>
+						<u-button size="default" :custom-style="sureBtn" @click="confirm">确定</u-button>
+					</view>
 				</view>
 			</view>
 		</TransitionGroup>
 		<!-- 遮罩层 -->
-		<view class="">123</view>
+		<view class="shade" v-show="openPopIndex!=-1" @click="closePop"></view>
 	</view>
 </template>
 
 <script>
 	import { $food_class } from '../../apis/jz-port.js'
-import { nextTick } from "vue"
-import icon from 'uview-ui/libs/config/props/icon'
+	import { nextTick } from "vue"
+	import icon from 'uview-ui/libs/config/props/icon'
 	export default {
 		data() {
 			return {
@@ -71,6 +74,7 @@ import icon from 'uview-ui/libs/config/props/icon'
 					{title:'配送方式',data:[{img:'',text:'蜂鸟配送'}],multiple:false},
 					{title:'商家属性',data:[{img:'',text:'品牌商家'},{img:'',text:'外卖保'},{img:'',text:'准时达'},{img:'',text:'新店'},{img:'',text:'在线支付'},{img:'',text:'开发票'}],multiple:true},
 				],
+				selectScreen:[],
 				sureBtn:{
 					color:"#fff",
 					backgroundColor:'#3190e8'
@@ -89,14 +93,59 @@ import icon from 'uview-ui/libs/config/props/icon'
 			clickItem(index){	//点击分类元素
 				this.openPopIndex = index
 			},
-			clickSort(index){	//点击排序元素
+			clickCommodity(item){	//点击分类中的商品
+				this.selectText[0] = item
+				this.closePop()
+				console.log('正在刷新'+item+'的内容')
+			},
+			clickSort(index,item){	//点击排序元素
 				this.selectSortIndex = index
+				this.closePop()
+				console.log('当前选择的排序内容是'+item)
+			},
+			clickScreenChild(index,c_index){	//点击筛选元素
+				if(this.selectScreen[index]=='' || this.selectScreen[index][c_index]==null){
+					this.addSku(index,c_index)	//添加SKU
+				}else{
+					this.minusSku(index,c_index)	//移除SKU
+				}				
+			},
+			addSku(index,c_index){		//添加SKU
+				if(this.screenData[index].multiple){
+					this.selectScreen[index][c_index]=this.screenData[index].data[c_index].text
+					this.$set(this.selectScreen,index,this.selectScreen[index])
+				}else{
+					this.$set(this.selectScreen,index,this.screenData[index].data[c_index].text)
+				}
+			},
+			minusSku(index,c_index){		//移除SKU
+				if(this.screenData[index].multiple){
+					this.selectScreen[index][c_index]=null
+					this.$set(this.selectScreen,index,this.selectScreen[index])
+				}else{
+					this.$set(this.selectScreen,index,'')
+				}
+			},
+			clearAll(){		//点击清空按钮
+				this.screenData.forEach((el,index)=>{
+					if(el.multiple){ this.$set(this.selectScreen,index,[]) }else{ this.$set(this.selectScreen,index,'') }
+				})
+				console.log('初始化selectScreen容器')
+			},
+			confirm(){	//点击确定按钮
+				console.log(this.selectScreen,'当前已选sku内容')
+				this.openPopIndex=-1				
+			},
+			closePop(){		//关闭弹窗与遮罩层
+				this.openPopIndex=-1
 			}
 		},
 		created() {
-			$food_class().then(val=>{
+			$food_class().then(val=>{	//获取食品分类列表
 				this.classData = val.data
-				console.log(this.classData)
+			}),
+			this.screenData.forEach((el,index)=>{	//根据数据内容构建容器
+				if(el.multiple){ this.selectScreen[index]=[] }else{ this.selectScreen[index]='' }
 			})
 		}
 	}
@@ -134,6 +183,7 @@ import icon from 'uview-ui/libs/config/props/icon'
 		display: flex;
 		padding: 20upx 0;
 		border-bottom: 1px solid #f4f4f4;
+		background-color: #fff;
 	}
 	.item{
 		flex-grow: 1;
@@ -159,8 +209,8 @@ import icon from 'uview-ui/libs/config/props/icon'
 	.pop1{
 		display: flex;
 	}
-	.pop1-left-menu{
-		/* background-color: #f4f4f4; */
+	.pop1-left-menu,.sort-list,.screen-box{
+		background-color: #fff;
 	}
 	.left-menu-item{
 		display: flex;
@@ -208,7 +258,13 @@ import icon from 'uview-ui/libs/config/props/icon'
 		right: 20upx;
 	}
 	.screen-box{
-		padding: 20upx;
+		padding: 0 20upx;
+	}
+	.screen-item{
+		padding-top: 20upx;
+	}
+	.screen-title{
+		font-size: 28upx;
 	}
 	.screen-child-wrap{
 		display: flex;
@@ -236,5 +292,23 @@ import icon from 'uview-ui/libs/config/props/icon'
 		background-color: #f4f4f4;
 		display: flex;
 		padding: 10upx;
+		margin-top: 20upx;
+	}
+	.active-screen-child{
+		color: #3190e8;
+		border-color: #3190e8;
+	}
+	.screen-active-icon{
+		width: 40upx;
+		height: 40upx;
+	}
+	.shade{
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.4);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: -1;
 	}
 </style>
