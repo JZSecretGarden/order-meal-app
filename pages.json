@@ -13,6 +13,17 @@
 					
 			},
 			{
+	        "path" : "pages/home/home",
+	        "style" :                                                                                    
+	        {
+	            "navigationBarTitleText": "",
+	            "enablePullDownRefresh": false,
+			"navigationStyle":"custom"
+	        }
+	        
+	    },
+			
+			{
 					"path" : "pages/pub/shop/shop",
 					"style" :                                                                                    
 					{
@@ -21,16 +32,7 @@
 					}
 					
 			}
-			,{
-			        "path" : "pages/home/home",
-			        "style" :                                                                                    
-			        {
-			            "navigationBarTitleText": "",
-			            "enablePullDownRefresh": false,
-					"navigationStyle":"custom"
-			        }
-			        
-			    }
+			
 	
         ,{
             "path" : "pages/search/search",

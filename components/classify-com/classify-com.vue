@@ -13,7 +13,7 @@
 				<scroll-view scroll-y="true">
 					<view class="pop1-left-menu">
 						<view class="left-menu-item" v-for="(item,index) in classData" :key="item.id" @click="clickCommodity(item.title)">
-							<image :src="'https://elm.cangdu.org/img'+item.image_url" mode="aspectFill"></image>
+							<image :src="'https://fuss10.elemecdn.com/'+item.image_url" mode="aspectFill"></image>
 							<text>{{item.title}}</text> 
 							<u-icon class="item-icon" name="arrow-right-double"></u-icon>
 						</view>
@@ -90,8 +90,8 @@
 			}
 		},
 		methods: {
-			clickItem(index){	//点击分类元素
-				this.openPopIndex = index
+			clickItem(index){	//点击分类模块元素以打开弹窗
+				this.openPopIndex == index ? this.openPopIndex=-1 : this.openPopIndex = index
 			},
 			clickCommodity(item){	//点击分类中的商品
 				this.selectText[0] = item
@@ -155,6 +155,7 @@
 	.popshow-leave-active{
 		transition: all 0.5s;
 		position: absolute;
+		width: 750upx;
 	}	
 	.popshow-enter-active{
 		animation: enterKeys 0.5s;
@@ -226,7 +227,6 @@
 	.left-menu-item>image{
 		height: 60upx;
 		width: 60upx;
-		background-color: #c4c4c4;
 		border-radius: 50%;
 		margin-right: 20upx;
 	}
