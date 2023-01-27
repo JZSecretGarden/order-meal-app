@@ -10,3 +10,5 @@ export const $comment_content = (id,data)=>req('ugc/v2/restaurants/'+id+'/rating
 export const $food_class = ()=>req('v2/index_entry','Get')
 //获取评价分数
 export const $comment_scores = (id)=>req('ugc/v2/restaurants/'+id+'/ratings/scores','Get')
+//获取商铺详情
+export const $shop_detail = (id)=>req('shopping/restaurant/'+id,'Get')

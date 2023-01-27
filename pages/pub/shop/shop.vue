@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
-		<!-- 顶部 -->
-		<view class="top">
+		<!-- 顶部 商家详情 -->
+		<view class="top" @click="jumpShopDetail">
 			<image class="user-img" src="../../../static/logo.png" mode="aspectFill"></image>
 			<view class="user-msg">
 				<view style='font-size: 18px;font-weight: bold;'>用户名称</view>
@@ -372,6 +372,11 @@
 			evaluateScrollToLower(){	//评价滚动到底部
 				this.evaluateScrollToLowerNum++
 				this.reqEvaluateContent()
+			},
+			jumpShopDetail(){	//跳转到详情页面
+				uni.navigateTo({
+					url:'/pages/pub/shop-detail/shop-detail?id='+this.shopId,
+				})
 			}
 		
 		},

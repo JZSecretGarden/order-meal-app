@@ -93,6 +93,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/pub/shop-detail/shop-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商家详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
