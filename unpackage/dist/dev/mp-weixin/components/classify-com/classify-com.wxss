@@ -1,0 +1,19 @@
+
+.top-wrap.data-v-5eff7884{
+	display: flex;
+	padding: 20rpx 0;
+	border-bottom: 1px solid #f4f4f4;
+}
+.item.data-v-5eff7884{
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50rpx;
+	font-size: 14px;
+}
+.item.data-v-5eff7884:nth-child(2){
+	border-left: 1px solid #c4c4c4;
+	border-right: 1px solid #c4c4c4;
+}
+

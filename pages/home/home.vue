@@ -9,32 +9,19 @@
 			</view>
 			<swiper class="home-top-wripper" indicator-dots>
 				<swiper-item style="display: flex; flex-wrap: wrap;">
-					<view class="wripper-food" @click="toFooddetails">
-						<image src="../../static/home/logo.png" mode=""></image>
-						<view>甜品饮品</view>
+					<view class="wripper-food" v-for="item in foodClassifitonone" :key="item.title" @click="toFooddetails(item)">
+						<image :src="'https://fuss10.elemecdn.com'+item.image_url" mode=""></image>
+						<view>{{item.title}}</view>
 					</view>
-					<view class="wripper-food">
-						<image src="../../static/home/logo.png" mode=""></image>
-						<view>甜品饮品</view>
-					</view>
-					<view class="wripper-food">
-						<image src="../../static/home/logo.png" mode=""></image>
-						<view>甜品饮品</view>
-					</view>
-					<view class="wripper-food">
-						<image src="../../static/home/logo.png" mode=""></image>
-						<view>甜品饮品</view>
-					</view>
-					<view class="wripper-food">
-						<image src="../../static/home/logo.png" mode=""></image>
-						<view>甜品饮品</view>
-					</view>
-					<view class="wripper-food">
-						<image src="../../static/home/logo.png" mode=""></image>
-						<view>甜品饮品</view>
+					
+					
+				</swiper-item>
+				<swiper-item style="display: flex; flex-wrap: wrap;">
+					<view class="wripper-food" v-for="item in foodClassifitontwo" :key="item.title" @click="toFooddetails(item)">
+						<image :src="'https://fuss10.elemecdn.com'+item.image_url" mode=""></image>
+						<view>{{item.title}}</view>
 					</view>
 				</swiper-item>
-				<swiper-item>2</swiper-item>
 			</swiper>
 		</view>
 		<!-- 附近商家 -->
@@ -134,17 +121,41 @@
 </template>
 
 <script>
+	import {$fetch_indexentry,$fetch_restaurants} from '../../apis/zm-port.js'
 	export default {
 		data() {
 			return {
-
+              foodClassifitonone:[]    ,//初始话食品分类列表数据 1
+			  foodClassifitontwo:[]    //初始话食品分类列表数据 2
 			}
 		},
+		onLoad() {
+			// 获取食品列表
+			$fetch_indexentry().then(res=>{
+			    this.foodClassifitonone = res.data.slice(0,8)
+				this.foodClassifitontwo = res.data.slice(8,16)
+				 // console.log(res.data)
+			})
+			// 获取商铺列表   附近商家
+			  // 参数类型  query    latitude string 纬度 longitude string 经度
+			  // 1、在全局配置     2、获取经纬度 getLocation 
+			  // uni.getLocation({
+			  // 	type: 'wgs84',
+			  // 	success: function (res) {
+			  // 		console.log('当前位置的经度：' + res.longitude);
+			  // 		console.log('当前位置的纬度：' + res.latitude);
+			  // 	}
+			  // });
+			// $fetch_restaurants().then(res=>{
+			// 	console.log(res.data)
+			// })
+		},
 		methods: {
-             toFooddetails(){
-				 uni.navigateTo({
-				 	url:'../fooddeails/fooddeails'
-				 })
+             toFooddetails(v){
+				 console.log(v)
+				 // uni.navigateTo({
+				 // 	url:'../fooddeails/fooddeails'
+				 // })
 			 }
 		}
 	}
