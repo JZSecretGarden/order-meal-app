@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="item">
+		<view class="item" >
 			<view class="title">
 				{{title}}
 			</view>
@@ -14,11 +14,14 @@
 <script>
 	export default {
 		name:"serve-item",
-		props:['title'],
+		props:['title','data'],
 		data() {
 			return {
 				
 			}
+		},
+		method:{
+			
 		}
 	}
 </script>

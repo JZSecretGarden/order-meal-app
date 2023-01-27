@@ -7,7 +7,7 @@
 					<image src="../../static/home/default.jpg" mode=""></image>
 				</view>
 				<view class="phone">
-					<view class="number">
+					<view class="number" @click="toLogin">
 						{{phoneNumber}}
 					</view>
 					<view class="tip">
@@ -52,7 +52,7 @@
 		</view>
 		<view class="main-mid">
 			<MyListItem url='/pages/pub/service-center/service-center' pic='../../static/my/squre.png' txt="服务中心"></MyListItem>
-			<MyListItem pic='../../static/my/eleme.png' txt="下载饿了么APP"></MyListItem>
+			<MyListItem url='/pages/pub/download/download' pic='../../static/my/eleme.png' txt="下载饿了么APP"></MyListItem>
 		</view>
 	</view>
 </template>
@@ -73,7 +73,11 @@
 			}
 		},
 		methods: {
-			
+			toLogin(){
+				uni.navigateTo({
+					url:'/pages/pub/login/login'
+				})
+			}
 		}
 	}
 </script>

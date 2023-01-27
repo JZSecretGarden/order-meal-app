@@ -21,27 +21,69 @@
 		<view class="mid">
 			热门问题
 		</view>
-		<ServeItem title='超级会员权益说明'></ServeItem>
-		<ServeItem title='签到规则'></ServeItem>
-		<ServeItem title='用户等级说明'></ServeItem>
-		<ServeItem title='积分问题'></ServeItem>
-		<ServeItem title='教我拍大片'></ServeItem>
-		<ServeItem title='支付问题'></ServeItem>
-		<ServeItem title='其它问题'></ServeItem>
-		<ServeItem title='准时达问题'></ServeItem>
-		<ServeItem title='会员说明'></ServeItem>
-		<ServeItem title='会员问题'></ServeItem>
-		<ServeItem title='红包问题'></ServeItem>
-		<ServeItem title='活动细则'></ServeItem>
-		<ServeItem title='补签规则'></ServeItem>
-		<ServeItem title='优惠说明'></ServeItem>
-		<ServeItem title='免责说明'></ServeItem>
-		<ServeItem title='代金券说明'></ServeItem>
-		<ServeItem title='商务合作'></ServeItem>
-		<ServeItem title='余额问题'></ServeItem>
-		<ServeItem title='超赞商家'></ServeItem>	
-		<ServeItem title='匿名购买'></ServeItem>
-		<ServeItem title='活动问题'></ServeItem>
+		<view class="" @click="toItem(data.supervipContent)">
+			<ServeItem title='超级会员权益说明'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.signContent)">
+			<ServeItem title='签到规则'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.rankContent)">
+			<ServeItem title='用户等级说明'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.pointtextContent)">
+			<ServeItem title='积分问题'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.phototutorialContent)">
+			<ServeItem title='教我拍大片'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.paymentContent)">
+			<ServeItem title='支付问题'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.otherContent)">
+			<ServeItem title='其它问题'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.ontimeContent)">
+			<ServeItem title='准时达问题'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.memberFullCutContent)">
+			<ServeItem title='会员说明'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.memberContent)">
+			<ServeItem title='会员问题'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.hongbaoContent)">
+			<ServeItem title='红包问题'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.freshmanContent)">
+			<ServeItem title='活动细则'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.forgotContent)">
+			<ServeItem title='补签规则'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.discountContent)">
+			<ServeItem title='优惠说明'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.disclaimerContent)">
+			<ServeItem title='免责声明'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.couponContent)">
+			<ServeItem title='代金券说明'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.businessContent)">
+			<ServeItem title='商务合作'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.balanceContent)">
+			<ServeItem title='余额问题'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.awesomeRestaurantContent)">
+			<ServeItem title='超赞商家'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.anonymousBuyContent)">
+			<ServeItem title='匿名购买'></ServeItem>
+		</view>
+		<view class="" @click="toItem(data.memberTimesContent)">
+			<ServeItem title='活动问题'></ServeItem>
+		</view>
 	</view>
 </template>
 <script>
@@ -51,14 +93,24 @@
 		components:{ ServeItem },
 		data() {
 			return {
-				
+				data:''
 			}
+		},
+		onLoad() {
+			this.getServe()
 		},
 		methods: {
 			getServe:function(){
 				$fetch_v3_profile_explain().then(res=>{
+					this.data = res.data
 					console.log(res)
 				})
+			},
+			
+			toItem(data){
+				uni.navigateTo({
+					url: '/pages/pub/serve-info/serve-info?='+data
+				});
 			}
 		}
 	}
