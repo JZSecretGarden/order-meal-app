@@ -1,0 +1,25 @@
+
+.container.data-v-48f47b58{
+	height: 100vh;
+	background-color: #F0F0F0;
+}
+.title.data-v-48f47b58{
+	font-size: 60rpx;
+	color: #0D7FD5;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 200rpx;
+	padding-bottom: 35rpx;
+}
+.tip.data-v-48f47b58{
+	text-align: center;
+	padding-bottom: 40rpx;
+}
+.img.data-v-48f47b58{
+	text-align: center;
+}
+image.data-v-48f47b58{
+	height: 500rpx;
+	width: 500rpx;
+}
+

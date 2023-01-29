@@ -1,0 +1,111 @@
+
+.ppp.data-v-e7a98e16 {
+		width: 130rpx; /*定义块元素的宽度*/
+		/* max-height: 25upx; */
+		white-space: nowrap; /*内容超宽后禁止换行显示*/
+		overflow: hidden; /*超出部分隐藏*/
+		text-overflow: ellipsis; /*文字超出部分以省略号显示*/
+}
+.select-city-wrap.data-v-e7a98e16 {
+	overflow: hidden;
+}
+/* 滑块 */
+.scroll.data-v-e7a98e16 {
+	/* background-color: yellow; */
+}
+.name.data-v-e7a98e16 {
+	color: #333;
+	font-size: 28rpx;
+	margin: 30rpx 30rpx;
+}
+/* 城市 */
+.letter.data-v-e7a98e16 {
+	width: 60rpx;
+	height: 44rpx;
+	color: #fff;
+	border-radius: 22rpx;
+	background-color: #2f9bfe;
+	font-size: 28rpx;
+	line-height: 44rpx;
+	text-align: center;
+	margin-bottom: 30rpx;
+	margin-left: 30rpx;
+}
+.city-item.data-v-e7a98e16 {
+	flex-wrap: wrap;
+	flex-direction: row;
+	margin-left: 20rpx;
+	display: flex;
+}
+.city-item-view.data-v-e7a98e16 {
+	width: 130rpx;
+	height: 55rpx;
+	margin: 15rpx;
+	border: 1rpx solid #dcdcdc;
+	border-radius: 6rpx;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	background-color: #ffffff;
+	/* 	background-color: #d5ebff;
+	border-color: #2f9bfe; */
+}
+.city-item-viewa.data-v-e7a98e16 {
+	width: 130rpx;
+	height: 55rpx;
+	margin: 15rpx;
+	border: 1rpx solid #2f9bfe;
+	border-radius: 6rpx;
+	justify-content: center;
+	align-items: center;
+	background-color: #d5ebff;
+	display: flex;
+	text-align: center;
+	align-item: center;
+	justify-content: center;
+}
+.city-item-text.data-v-e7a98e16 {
+	color: #999;
+	font-size: 28rpx;
+	display: flex;
+	text-align: center;
+	align-item: center;
+	justify-content: center;
+}
+.city-item-texta.data-v-e7a98e16 {
+	font-size: 28rpx;
+	color: #2f9bfe;
+	text-align: center;
+}
+/* 右锚点 */
+.anchor.data-v-e7a98e16 {
+	/* background-color: pink; */
+	position: fixed;
+	right: 20rpx;
+	top: 200rpx;
+	z-index: 10;
+	flex-direction: row;
+}
+.anchor-item.data-v-e7a98e16 {
+	align-items: center;
+	flex-direction: row;
+	height: 40rpx;
+	text-align: center;
+}
+.anchor-text-position.data-v-e7a98e16 {
+	height: 40rpx;
+	width: 40rpx;
+	text-align: center;
+	line-height: 40rpx;
+	font-size: 32rpx;
+	color: #333;
+	background-color: #e5e5e5;
+	border-radius: 20rpx;
+}
+.anchor-text.data-v-e7a98e16 {
+	font-size: 32rpx;
+	line-height: 40rpx;
+	padding: 0 15rpx;
+	color: #2f9bfe;
+}
+

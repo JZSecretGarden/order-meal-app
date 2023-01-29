@@ -1,0 +1,13 @@
+
+.logo.data-v-2fcf2274{
+	margin-top: 40rpx;
+	text-align: center;
+}
+image.data-v-2fcf2274{
+	width: 500rpx;
+	height: 500rpx;
+}
+.btn.data-v-2fcf2274{
+	padding: 40rpx;
+}
+

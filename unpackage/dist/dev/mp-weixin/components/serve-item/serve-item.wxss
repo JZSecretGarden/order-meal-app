@@ -1,0 +1,18 @@
+
+.container.data-v-1c8b41b8{
+	margin-bottom: 5rpx;
+	background-color: #fff;
+}
+.item.data-v-1c8b41b8{
+	padding-top:30rpx;
+	padding-bottom: 30rpx;
+	display: flex;
+	padding-left: 25rpx;
+	padding-right: 25rpx;
+	justify-content: space-between;
+}
+.img image.data-v-1c8b41b8{
+	width: 50rpx;
+	height: 50rpx;
+}
+
