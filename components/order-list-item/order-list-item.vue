@@ -45,6 +45,9 @@
 				
 			};
 		},
+		onLoad() {
+			this.getOrderList()
+		},
 		methods:{
 			getOrderList:function(){
 				let id = 1
