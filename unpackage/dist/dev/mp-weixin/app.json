@@ -1,14 +1,22 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/pub/classify/classify",
     "pages/pub/shop/shop",
-    "pages/home/home",
     "pages/search/search",
     "pages/order/order",
     "pages/my/my",
+    "pages/map/map",
     "pages/pub/login/login",
     "pages/pub/register/register",
-    "pages/fooddeails/fooddeails"
+    "pages/fooddeails/fooddeails",
+    "pages/pub/points/points",
+    "pages/pub/member/member",
+    "pages/pub/service-center/service-center",
+    "pages/pub/serve-info/serve-info",
+    "pages/pub/shop-detail/shop-detail",
+    "pages/pub/download/download",
+    "pages/pub/mapDetails/mapDetails"
   ],
   "subPackages": [],
   "window": {
@@ -34,6 +42,10 @@
       {
         "text": "我的",
         "pagePath": "pages/my/my"
+      },
+      {
+        "text": "城市",
+        "pagePath": "pages/map/map"
       }
     ]
   },
