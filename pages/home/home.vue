@@ -5,7 +5,7 @@
 			<view class="home-top-serch">
 				<view class="search">上到</view>
 				<view class="adress">成都环球中心天堂沙发啊</view>
-				<view class="login">登录|注册</view>
+				<view class="login" @click="gotoLogin()">登录|注册</view>
 			</view>
 			<swiper class="home-top-wripper" indicator-dots>
 				<swiper-item style="display: flex; flex-wrap: wrap;">
@@ -31,12 +31,12 @@
 				<view>附近商家</view>
 			</view>
 			<view class="shoplist_container">
-				<view class="shop-item" v-for="item in nearbyMerchants" :key="item.id" @click="goShopping(item)">
-					<image :src=" 'https://elm.cangdu.org/img/' +item.image_path"></image>
+				<view class="shop-item">
+					<image src="../../static/logo.png"></image>
 					<view class="shop-item-right">
 						<view class="shop-right-line1">
 							<view class="line1-left">
-								<view>品牌</view>{{item.name}}
+								<view>品牌</view>效果演示
 							</view>
 							<view class="line1-right">
 								保准票
@@ -46,10 +46,10 @@
 							<view class="line2-left">
 								<view class="line2-left-stars">
 									<view>星星</view>
-									<view>{{item.rating}}</view>
+									<view>4.7</view>
 								</view>
 								<view class="line2-left-list">
-									月售{{item.recent_order_num}}单
+									月售106单
 								</view>
 							</view>
 							<view class="line2-right">
@@ -59,20 +59,59 @@
 						</view>
 						<view class="shop-right-line3">
 							<view class="line3-left">
-								<view>￥{{item.float_minimum_order_amount}}起送</view>
+								<view>￥20起送</view>
 								<view>/</view>
-								<view>{{item.piecewise_agent_fee.tips}}</view>
+								<view>配送费约￥5</view>
 							</view>
 							<view class="line3-right">
-								<view>{{item.distance}}</view>
+								<view>1542.3公里</view>
 								<view>/</view>
-								<view>{{item.order_lead_time}}</view>
+								<view>16小时49分钟</view>
 							</view>
 						</view>
 					</view>
 				</view>
 
-				
+				<view class="shop-item">
+					<image src="../../static/logo.png"></image>
+					<view class="shop-item-right">
+						<view class="shop-right-line1">
+							<view class="line1-left">
+								<view>品牌</view>效果演示
+							</view>
+							<view class="line1-right">
+								保准票
+							</view>
+						</view>
+						<view class="shop-right-line2">
+							<view class="line2-left">
+								<view class="line2-left-stars">
+									<view>星星</view>
+									<view>4.7</view>
+								</view>
+								<view class="line2-left-list">
+									月售106单
+								</view>
+							</view>
+							<view class="line2-right">
+								<view>蜂鸟专送</view>
+								<view>准时达</view>
+							</view>
+						</view>
+						<view class="shop-right-line3">
+							<view class="line3-left">
+								<view>￥20起送</view>
+								<view>/</view>
+								<view>配送费约￥5</view>
+							</view>
+							<view class="line3-right">
+								<view>1542.3公里</view>
+								<view>/</view>
+								<view>16小时49分钟</view>
+							</view>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		<view>
@@ -87,8 +126,7 @@
 		data() {
 			return {
               foodClassifitonone:[]    ,//初始话食品分类列表数据 1
-			  foodClassifitontwo:[],   //初始话食品分类列表数据 2
-			  nearbyMerchants:[]              
+			  foodClassifitontwo:[]    //初始话食品分类列表数据 2
 			}
 		},
 		onLoad() {
@@ -101,41 +139,29 @@
 			// 获取商铺列表   附近商家
 			  // 参数类型  query    latitude string 纬度 longitude string 经度
 			  // 1、在全局配置     2、获取经纬度 getLocation 
-			 //  uni.getLocation({
-			 //  	type: 'wgs84',
-				// geocode:true,
-			 //  	success: function (res) {
-			 //  		console.log(res)+-+
-					
-			 //  	},
-				
-			 //  });
-			$fetch_restaurants({
-				latitude:'22',
-				longitude:'11'
-			}).then(res=>{
-				console.log(res.data[1].piecewise_agent_fee.tips)
-				this.nearbyMerchants = res.data
-				
-			})
+			  // uni.getLocation({
+			  // 	type: 'wgs84',
+			  // 	success: function (res) {
+			  // 		console.log('当前位置的经度：' + res.longitude);
+			  // 		console.log('当前位置的纬度：' + res.latitude);
+			  // 	}
+			  // });
+			// $fetch_restaurants().then(res=>{
+			// 	console.log(res.data)
+			// })
 		},
 		methods: {
-			// 点击轮播  跳转到对应的页面
              toFooddetails(v){
 				 console.log(v)
 				 // uni.navigateTo({
 				 // 	url:'../fooddeails/fooddeails'
 				 // })
 			 },
-			 
-			 // 点击 附近商家 跳转到 商铺
-			 goShopping(v){
-				 console.log(v)
-				 // uni.navigateTo({
-				 // 	url:''+ v
-				 // })
-			 }
-			 
+			 gotoLogin(){
+			 	uni.navigateTo({
+			 		url:'/pages/pub/login/login'
+			 	})
+			 },
 		}
 	}
 </script>

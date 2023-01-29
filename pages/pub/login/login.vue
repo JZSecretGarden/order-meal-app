@@ -16,7 +16,7 @@
 					<view style="flex-direction: row;"><image :src="codeImg" style="height: 80upx;width: 160upx;"></image></view>
 					<view style="flex-direction: row;margin-left: 10upx;">
 						<view>看不清</view>
-						<view style="color: aqua;" @click="renewImg()">换一张</view>
+						<view style="color: #3b95e9;" @click="renewImg()">换一张</view>
 					</view>
 				</view>
 			</view>
@@ -26,6 +26,10 @@
 		<view style="margin-top: 20upx;" @click="login">
 			<button size="default" style="background-color: #4cd964;color: #ffffff;width: 600upx;">登录</button>
 			<!-- <text style="line-height: 60rpx;color: #FFFFFF;">登录</text> -->
+		</view>
+		<view style="display: flex;width: 100%;height: 80upx;font-size: 30upx;">
+			<view style="flex-direction: row;width: 50%;margin-left: 20upx;margin-top: 20upx;color: #d5ebff;"></view>
+			<view style="flex-direction: row;width: 50%;margin-left: 430upx;margin-top: 20upx;color: #3b95e9;" @click="gotoResPassword()">重置密码</view>
 		</view>
 	</view>
 </template>
@@ -42,7 +46,7 @@ export default {
 			user:{
 				username:"",
 				password:"",
-				captcha_code:""
+				captcha_code:null
 			}
 		};
 	},
@@ -50,6 +54,11 @@ export default {
 		this.renewImg();
 	},
 	methods: {
+		gotoResPassword(){
+			uni.navigateTo({
+				url:'../resPassword/resPassword'
+			})
+		},
 		renewImg(){
 			$fetch_v1_code().then(imgCodeRes => {
 				// this.data = res.data
@@ -66,7 +75,7 @@ export default {
 				uni.showToast({ title: "密码不能为空", icon: 'none' });
 				return;
 			}
-			if(this.user.captcha_codes===""){
+			if(this.user.captcha_code===""){
 				uni.showToast({ title: "验证码不能为空", icon: 'none' });
 				return;
 			}
@@ -140,6 +149,9 @@ export default {
 </script>
 
 <style lang="scss">
+page{
+background-color:#f5f5f5;
+}
 .example {
 	// padding: 30rpx;
 	display: flex;
@@ -155,8 +167,8 @@ export default {
 		padding: 30rpx;
 		align-items: center;
 		justify-content: center;
-		border-bottom: 1upx solid #999999;
-
+		border-bottom: 6upx solid #f1f1f1;
+		
 		.span-des {
 			font-size: 28rpx;
 			font-weight: bold;

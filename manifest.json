@@ -44,12 +44,7 @@
             "ios" : {},
             /* SDK配置 */
             "sdkConfigs" : {
-                "maps" : {
-                    "amap" : {
-                        "appkey_ios" : "",
-                        "appkey_android" : ""
-                    }
-                }
+                "maps" : {}
             }
         }
     },
@@ -57,7 +52,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxa77733a00ed56a6c",
         "setting" : {
             "urlCheck" : false,
             "es6" : true

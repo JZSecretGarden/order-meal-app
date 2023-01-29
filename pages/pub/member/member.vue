@@ -27,7 +27,7 @@
 						<text>1个月</text>
 						<text>￥20</text>
 					</view>
-					<view class="buy" @click="toOnlinePay">
+					<view class="buy">
 						购买
 					</view>
 				</view>
@@ -64,11 +64,7 @@
 			}
 		},
 		methods: {
-			toOnlinePay(){
-				uni.navigateTo({
-					url:'/pages/pub/onlinePay/onlinePay'
-				})
-			}
+			
 		}
 	}
 </script>

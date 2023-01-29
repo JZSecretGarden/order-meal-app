@@ -3,12 +3,12 @@
 	<view class="container">
 		<view class="header">
 			<view class="content">
-				<view class="avatar" @click="toUserInfo">
+				<view class="avatar">
 					<image src="../../static/home/default.jpg" mode=""></image>
 				</view>
 				<view class="phone">
 					<view class="number" @click="toLogin">
-						{{user_name}}
+						{{phoneNumber}}
 					</view>
 					<view class="tip">
 						{{h_tip}}
@@ -63,7 +63,7 @@
 		components:{MyListItem},
 		data() {
 			return {
-				user_name:"登录/注册",
+				phoneNumber:"登录/注册",
 				h_tip:'暂无绑定手机号',
 				money:'0.00',
 				sale:'3',
@@ -72,16 +72,10 @@
 				
 			}
 		},
-		
 		methods: {
 			toLogin(){
 				uni.navigateTo({
 					url:'/pages/pub/login/login'
-				})
-			},
-			toUserInfo(){
-				uni.navigateTo({
-					url:'/pages/pub/user-info/user-info'
 				})
 			}
 		}

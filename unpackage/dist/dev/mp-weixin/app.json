@@ -8,6 +8,8 @@
     "pages/my/my",
     "pages/map/map",
     "pages/pub/login/login",
+    "pages/pub/resPassword/resPassword",
+    "pages/pub/mapDetails/mapDetails",
     "pages/pub/register/register",
     "pages/fooddeails/fooddeails",
     "pages/pub/points/points",
@@ -15,8 +17,7 @@
     "pages/pub/service-center/service-center",
     "pages/pub/serve-info/serve-info",
     "pages/pub/shop-detail/shop-detail",
-    "pages/pub/download/download",
-    "pages/pub/mapDetails/mapDetails"
+    "pages/pub/download/download"
   ],
   "subPackages": [],
   "window": {
