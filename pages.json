@@ -70,7 +70,8 @@
 				"navigationBarTextStyle": "white"
 			}
 
-		}, {
+		},
+		{
 			"path": "pages/map/map",
 			"style": {
 				"navigationBarTitleText": "城市",
@@ -79,7 +80,8 @@
 				"navigationBarTextStyle": "white"
 			}
 
-		}, {
+		},
+		{
 			"path": "pages/pub/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
