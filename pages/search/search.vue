@@ -64,7 +64,7 @@
 			}
 		},
 		onLoad() {
-
+this.isShow1 = false
 		},
 		methods: {
 			funcInput(){
@@ -79,15 +79,20 @@
 				this.isShow3 = true;
 				let geohash = ['31.38098', '104.063049'];
 				let gg = geohash.toString()
-				console.log(gg)
+				
 				this.keyword = v
 				$fetch_searchrestaurants({
 					geohash: gg,
 					keyword: this.keyword
 				}).then(res => {
-					console.log(res)
+					// console.log(res)
 					this.resultList = res.data
-
+					
+					if(res.data.message == '搜索餐馆数据失败'){
+						 this.isShow2 = true
+						 this.isShow1 = false
+						 this.isShow3 = false
+					}
 				})
 
 			},
@@ -104,7 +109,7 @@
 					geohash: gg,
 					keyword: this.keyword
 				}).then(res => {
-					console.log(res)
+					// console.log(res)
 					this.resultList = res.data
 					
 					if(res.data.message == '搜索餐馆数据失败'){
