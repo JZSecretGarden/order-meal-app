@@ -136,7 +136,6 @@
 					url:'/pages/pub/shop/shop?shop_id='+v.id
 				})
 			}
-
 		}
 	}
 </script>
