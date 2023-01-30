@@ -12,3 +12,5 @@ export const $food_class = ()=>req('v2/index_entry','Get')
 export const $comment_scores = (id)=>req('ugc/v2/restaurants/'+id+'/ratings/scores','Get')
 //获取商铺详情
 export const $shop_detail = (id)=>req('shopping/restaurant/'+id,'Get')
+//加入购物车
+export const $add_car = (data)=>req('v1/carts/checkout','POST',data)

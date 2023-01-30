@@ -214,7 +214,7 @@
 </template>
 
 <script>
-	import { $commodity_list , $comment_class, $comment_content, $comment_scores } from 'apis/jz-port.js'
+	import { $commodity_list , $comment_class, $comment_content, $comment_scores, $add_car } from 'apis/jz-port.js'
 	import { nextTick } from "vue"
 	export default {
 		data() {
@@ -349,11 +349,41 @@
 			addCarData(data,index){	//购物车内增加商品
 				data.num++
 			},
-			goToBuy(){	//去结算
-				uni.navigateTo({
-					url:'/pages/pub/order/checkOrder'
-				})
+			goToBuy(){	//去结算				
 				this.carData.length == 0? uni.showToast({title:'请选择商品'}) : console.log(this.carData,'去结算')
+				if(this.carData.length>0){
+					//绑定参数
+					let data = {
+					 restaurant_id:this.shopId,
+					 geohash:'113.26308',
+					 entities:[]
+					}
+					//加入后台实际购物车
+					this.carData.forEach(el=>{
+					 data.entities.push([{
+						attrs:[],
+						extra:{},
+						id:el.food_id,
+						name:el.name,
+						packing_fee:el.packing_fee,
+						price:el.price,
+						quantity:el.num,
+						sku_id:el.sku_id,
+						specs:el.specs,
+						stock:el.stock,
+					 }])
+					})
+					//获取后台购物车返回数据发送给结算页面
+					$add_car(data).then(val=>{
+						uni.navigateTo({
+							url:'/pages/pub/order/checkOrder',
+							success(res){
+								res.eventChannel.emit( 'carData', val )
+							}
+						})
+					})
+			
+				}
 			},
 			clearCarData(){	//清空购物车
 				this.carData.forEach(el=>el.num=0)
