@@ -157,6 +157,30 @@
 			"style": {
 				"navigationBarTitleText": "下载饿了么"
 			}
+		},{
+			"path": "pages/pub/user-info/user-info",
+			"style": {
+				"navigationBarTitleText": "用户信息",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190E8",
+				"navigationBarTextStyle": "white"
+			}
+		},{
+			"path": "pages/pub/onlinePay/onlinePay",
+			"style": {
+				"navigationBarTitleText": "在线支付",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190E8",
+				"navigationBarTextStyle": "white"
+			}
+		},{
+			"path": "pages/pub/order_info/order_info",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190E8",
+				"navigationBarTextStyle": "white"
+			}
 		}
 	],
 	"globalStyle": {

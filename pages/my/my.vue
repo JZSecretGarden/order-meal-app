@@ -3,7 +3,7 @@
 	<view class="container">
 		<view class="header">
 			<view class="content">
-				<view class="avatar">
+				<view class="avatar" @click="toUserInfo()">
 					<image src="../../static/home/default.jpg" mode=""></image>
 				</view>
 				<view class="phone">
@@ -76,6 +76,11 @@
 			toLogin(){
 				uni.navigateTo({
 					url:'/pages/pub/login/login'
+				})
+			},
+			toUserInfo(){
+				uni.navigateTo({
+					url:'/pages/pub/user-info/user-info'
 				})
 			}
 		}

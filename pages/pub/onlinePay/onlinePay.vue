@@ -18,7 +18,7 @@
 				支付宝
 			</view>
 			<label class="radio" style="text-align: right; flex: 1;">
-				<radio value="zfb" /><text></text>
+				<radio value="zfb" checked /><text></text>
 			</label>
 		</view>
 		<view class="item">
