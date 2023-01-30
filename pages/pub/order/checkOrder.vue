@@ -41,18 +41,19 @@
 			<view class="way">
 				支付方式
 			</view>
-			<view class="pay_line" @click="show=true">
-				<text space="ensp" decode='true'>在线支付 </text><u-icon name="arrow-right" color="#aaa" size='30'>132</u-icon>
+			<view class="pay_line" @click="openPop">
+				<text space="ensp" decode='true'>在线支付 </text><u-icon name="arrow-right" color="#aaa" size='30'></u-icon>
 			</view>
 		</view>
 		<!-- 弹出层 -->
-		<u-popup v-show="show" mode="top">
-			<view class="pop_top"><view class="way">支付方式</view></view>
-			<u-radio-group v-model="value" width='100%'>
-				<u-radio width='100%' disabled='ture'> <text style="color: #ccc;">货到付款(商家不支持货到付款)</text></u-radio>
-				<u-radio width='100%' active-color='#4cd964' name='online'> 在线支付</u-radio>
-			</u-radio-group>
-		</u-popup>
+		<u-popup v-model="show" mode="bottom" height="30%" >
+		      <view class="pop_top"><view class="way">支付方式</view></view>
+		      
+		      <u-radio-group v-model="value" width='100%'>
+		       <u-radio width='100%' disabled='ture'> <text style="color: #ccc;">货到付款(商家不支持货到付款)</text></u-radio>
+		       <u-radio width='100%' active-color='#4cd964' name='online'> 在线支付</u-radio>
+		      </u-radio-group>
+		   </u-popup>
 		<view class="red pad">
 			<text>红包</text><text>暂时只在饿了么 APP 中支持</text>
 		</view>
@@ -140,6 +141,10 @@
 				uni.navigateTo({
 					url:'/pages/payLine/payLine'
 				})
+			},
+			openPop(){
+				this.show = true
+				console.log(this.show)
 			}
 		},
 		onLoad(option) {
