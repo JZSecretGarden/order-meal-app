@@ -72,9 +72,9 @@
 			FuncKeyword() {
 				// 搜索餐馆
 				// 参数为 geohash string经纬度 keyword string关键词
-				let geohash = ['30.569082','104.063049'];
+				let geohash = ['31.38098','104.063049'];
 				let gg = geohash.toString()
-			
+			    console.log(gg)
 				$fetch_searchrestaurants({
 					geohash: gg,
 					keyword: this.keyword

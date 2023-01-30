@@ -133,7 +133,7 @@
 			goShopping(v) {
 				console.log(v)
 				uni.navigateTo({
-					url: '/pages/pub/login/login' + v
+					url: '/pages/pub/login/login' 
 				})
 			}
 
