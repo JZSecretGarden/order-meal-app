@@ -9,15 +9,17 @@
 			</view>
 			<swiper class="home-top-wripper" indicator-dots>
 				<swiper-item style="display: flex; flex-wrap: wrap;">
-					<view class="wripper-food" v-for="item in foodClassifitonone" :key="item.title" @click="toFooddetails(item)">
+					<view class="wripper-food" v-for="item in foodClassifitonone" :key="item.title"
+						@click="toFooddetails(item)">
 						<image :src="'https://fuss10.elemecdn.com'+item.image_url" mode=""></image>
 						<view>{{item.title}}</view>
 					</view>
-					
-					
+
+
 				</swiper-item>
 				<swiper-item style="display: flex; flex-wrap: wrap;">
-					<view class="wripper-food" v-for="item in foodClassifitontwo" :key="item.title" @click="toFooddetails(item)">
+					<view class="wripper-food" v-for="item in foodClassifitontwo" :key="item.title"
+						@click="toFooddetails(item)">
 						<image :src="'https://fuss10.elemecdn.com'+item.image_url" mode=""></image>
 						<view>{{item.title}}</view>
 					</view>
@@ -31,12 +33,12 @@
 				<view>附近商家</view>
 			</view>
 			<view class="shoplist_container">
-				<view class="shop-item">
-					<image src="../../static/logo.png"></image>
+				<view class="shop-item" v-for="item in nearbyMerchants" :key="item.id" @click="goShopping(item)">
+					<image :src=" 'https://elm.cangdu.org/img/' +item.image_path"></image>
 					<view class="shop-item-right">
 						<view class="shop-right-line1">
 							<view class="line1-left">
-								<view>品牌</view>效果演示
+								<view>品牌</view>{{item.name}}
 							</view>
 							<view class="line1-right">
 								保准票
@@ -46,10 +48,10 @@
 							<view class="line2-left">
 								<view class="line2-left-stars">
 									<view>星星</view>
-									<view>4.7</view>
+									<view>{{item.rating}}</view>
 								</view>
 								<view class="line2-left-list">
-									月售106单
+									月售{{item.recent_order_num}}单
 								</view>
 							</view>
 							<view class="line2-right">
@@ -59,59 +61,20 @@
 						</view>
 						<view class="shop-right-line3">
 							<view class="line3-left">
-								<view>￥20起送</view>
+								<view>￥{{item.float_minimum_order_amount}}起送</view>
 								<view>/</view>
-								<view>配送费约￥5</view>
+								<view>{{item.piecewise_agent_fee.tips}}</view>
 							</view>
 							<view class="line3-right">
-								<view>1542.3公里</view>
+								<view>{{item.distance}}</view>
 								<view>/</view>
-								<view>16小时49分钟</view>
+								<view>{{item.order_lead_time}}</view>
 							</view>
 						</view>
 					</view>
 				</view>
 
-				<view class="shop-item">
-					<image src="../../static/logo.png"></image>
-					<view class="shop-item-right">
-						<view class="shop-right-line1">
-							<view class="line1-left">
-								<view>品牌</view>效果演示
-							</view>
-							<view class="line1-right">
-								保准票
-							</view>
-						</view>
-						<view class="shop-right-line2">
-							<view class="line2-left">
-								<view class="line2-left-stars">
-									<view>星星</view>
-									<view>4.7</view>
-								</view>
-								<view class="line2-left-list">
-									月售106单
-								</view>
-							</view>
-							<view class="line2-right">
-								<view>蜂鸟专送</view>
-								<view>准时达</view>
-							</view>
-						</view>
-						<view class="shop-right-line3">
-							<view class="line3-left">
-								<view>￥20起送</view>
-								<view>/</view>
-								<view>配送费约￥5</view>
-							</view>
-							<view class="line3-right">
-								<view>1542.3公里</view>
-								<view>/</view>
-								<view>16小时49分钟</view>
-							</view>
-						</view>
-					</view>
-				</view>
+
 			</view>
 		</view>
 		<view>
@@ -121,47 +84,59 @@
 </template>
 
 <script>
-	import {$fetch_indexentry,$fetch_restaurants} from '../../apis/zm-port.js'
+	import {
+		$fetch_indexentry,
+		$fetch_restaurants
+	} from '../../apis/zm-port.js'
 	export default {
 		data() {
 			return {
-              foodClassifitonone:[]    ,//初始话食品分类列表数据 1
-			  foodClassifitontwo:[]    //初始话食品分类列表数据 2
+				foodClassifitonone: [], //初始话食品分类列表数据 1
+				foodClassifitontwo: [], //初始话食品分类列表数据 2
+				nearbyMerchants: []
 			}
 		},
 		onLoad() {
 			// 获取食品列表
-			$fetch_indexentry().then(res=>{
-			    this.foodClassifitonone = res.data.slice(0,8)
-				this.foodClassifitontwo = res.data.slice(8,16)
-				 // console.log(res.data)
+			$fetch_indexentry().then(res => {
+				this.foodClassifitonone = res.data.slice(0, 8)
+				this.foodClassifitontwo = res.data.slice(8, 16)
+				// console.log(res.data)
 			})
 			// 获取商铺列表   附近商家
-			  // 参数类型  query    latitude string 纬度 longitude string 经度
-			  // 1、在全局配置     2、获取经纬度 getLocation 
-			  // uni.getLocation({
-			  // 	type: 'wgs84',
-			  // 	success: function (res) {
-			  // 		console.log('当前位置的经度：' + res.longitude);
-			  // 		console.log('当前位置的纬度：' + res.latitude);
-			  // 	}
-			  // });
-			// $fetch_restaurants().then(res=>{
-			// 	console.log(res.data)
-			// })
+			// 参数类型  query    latitude string 纬度 longitude string 经度
+			// 1、在全局配置     2、获取经纬度 getLocation 
+			// uni.getLocation({
+			// 	type: 'wgs84',
+			// 	success: function (res) {
+			// 		console.log('当前位置的经度：' + res.longitude);
+			// 		console.log('当前位置的纬度：' + res.latitude);
+			// 	}
+			// });
+			$fetch_restaurants({
+				latitude: '22',
+				longitude: '11'
+			}).then(res => {
+				console.log(res.data[1].piecewise_agent_fee.tips)
+				this.nearbyMerchants = res.data
+
+			})
 		},
 		methods: {
-             toFooddetails(v){
-				 console.log(v)
-				 // uni.navigateTo({
-				 // 	url:'../fooddeails/fooddeails'
-				 // })
-			 },
-			 gotoLogin(){
-			 	uni.navigateTo({
-			 		url:'/pages/pub/login/login'
-			 	})
-			 },
+			toFooddetails(v) {
+				console.log(v)
+				// uni.navigateTo({
+				// 	url:'../fooddeails/fooddeails'
+				// })
+			},
+			// 点击 附近商家 跳转到 商铺页面
+			goShopping(v) {
+				console.log(v)
+				uni.navigateTo({
+					url: '/pages/pub/login/login' + v
+				})
+			}
+
 		}
 	}
 </script>
