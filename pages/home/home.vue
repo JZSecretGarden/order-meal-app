@@ -133,15 +133,9 @@
 			goShopping(v) {
 				console.log(v)
 				uni.navigateTo({
-<<<<<<< HEAD
-					url:'/pages/pub/shop/shop?shop_id='+v.id
-=======
-					url: '/pages/pub/login/login' 
->>>>>>> 628af3c56d3116fc6dd5340a4bf29ea7c216ad9d
+                    url:'/pages/pub/shop/shop?shop_id='+v.id
 				})
-				// uni.navigateTo({
-				// 	url: '/pages/pub/login/login' + v
-				// })
+				
 			}
 
 		}
