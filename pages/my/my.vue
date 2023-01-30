@@ -58,6 +58,7 @@
 </template>
 
 <script>
+	import {$fetch_v1_user} from '../../apis/tf-port.js'
 	import MyListItem from '../../components/my-list-item/my-list-item.vue'
 	export default {
 		components:{MyListItem},
@@ -72,6 +73,9 @@
 				
 			}
 		},
+		onLoad() {
+			this.getUser()
+		},
 		methods: {
 			toLogin(){
 				uni.navigateTo({
@@ -81,6 +85,11 @@
 			toUserInfo(){
 				uni.navigateTo({
 					url:'/pages/pub/user-info/user-info'
+				})
+			},
+			getUser(){
+				$fetch_v1_user().then(res=>{
+					console.log(res)
 				})
 			}
 		}

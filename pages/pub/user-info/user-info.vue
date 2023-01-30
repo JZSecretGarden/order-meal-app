@@ -11,7 +11,7 @@
 				
 			</view>
 		</view>
-		<view class="item">
+		<view class="item" @click="toAddress()">
 			<ServeItem title='收货地址'></ServeItem>
 		</view>
 		<view class="tip">
@@ -22,13 +22,14 @@
 			安全设置
 		</view>
 		<ServeItem title='登录密码'></ServeItem>
-		<view class="btn">
+		<view class="btn" @click="removeLogin">
 			<button style="background-color: #D8584A; color: #fff;">退出登录</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {$fetch_v2_signout} from '../../../apis/tf-port.js'
 	import MyListItem from '../../../components/my-list-item/my-list-item.vue'
 	import ServeItem from "../../../components/serve-item/serve-item.vue"
 	export default {
@@ -48,6 +49,19 @@
 						console.log(JSON.stringify(res.tempFilePaths));
 					}
 				});
+			},
+			toAddress(){
+				uni.navigateTo({
+					url:''
+				})
+			},
+			removeLogin(){
+				$fetch_v2_signout().then(res=>{
+					console.log(res)
+					uni.showToast({
+						title:res.data.message
+					})
+				})
 			}
 		}
 	}

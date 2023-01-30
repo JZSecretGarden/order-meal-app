@@ -219,9 +219,9 @@
 	export default {
 		data() {
 			return {
-				shopId:1,	//商铺id
+				shopId:0,	//商铺id
 				tabData: ['商品', '评价'],
-				tabActiveIndex:1, //选中tab下标
+				tabActiveIndex:0, //选中tab下标
 				list: [],
 				leftMenuIndex: 0 ,//选中左菜单的下标
 				cardTop:[] ,//商品卡片距离顶部的距离
@@ -350,6 +350,9 @@
 				data.num++
 			},
 			goToBuy(){	//去结算
+				uni.navigateTo({
+					url:'/pages/pub/order/checkOrder'
+				})
 				this.carData.length == 0? uni.showToast({title:'请选择商品'}) : console.log(this.carData,'去结算')
 			},
 			clearCarData(){	//清空购物车
@@ -380,7 +383,8 @@
 			}
 		
 		},
-		onLoad() {
+		onLoad(option) {
+			this.shopId = option.shop_id
 			//请求商品数据
 			$commodity_list({restaurant_id:this.shopId}).then((el) => {
 				el.data.forEach(item=>{

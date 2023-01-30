@@ -181,6 +181,63 @@
 				"navigationBarBackgroundColor": "#3190E8",
 				"navigationBarTextStyle": "white"
 			}
+		},{
+			"path": "pages/pub/order/checkOrder",
+			"style": {
+				"navigationBarTitleText": "确认订单",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		{
+			"path": "pages/pub/order/addAddress",
+			"style": {
+				"navigationBarTitleText": "新增地址",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		{
+			"path": "pages/pub/order/choseAddress",
+			"style": {
+				"navigationBarTitleText": "选择地址",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		{
+			"path": "pages/pub/order/remark",
+			"style": {
+				"navigationBarTitleText": "订单备注",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		{
+			"path": "pages/pub/order/invoice",
+			"style": {
+				"navigationBarTitleText": "选择发票抬头",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "pages/pub/order/payLine",
+			"style": {
+				"navigationBarTitleText": "在线支付",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+			}
 		}
 	],
 	"globalStyle": {
