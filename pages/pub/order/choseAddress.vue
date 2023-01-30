@@ -3,11 +3,11 @@
 		<!-- 收货地址列表 -->
 		<u-radio-group v-model="name" @change="radioGroupChange">
 			<view class="address_list" v-for="(item,index) in addressList">
-				<u-radio :name="item.name" active-color='#4CD964'  @change='radioChange(index)'>
+				<u-radio :name="item.name" active-color='#4CD964' style="max-width: 600upx;"  @change='radioChange(index)'>
 					<view class="message">
 						<view class="info">
-							<text
-								style="font-size: 36rpx; font-weight: 600;">{{item.name}}</text><text>{{item.sex==0?'女士':'先生'}}</text><text>{{item.phone}}</text>
+							<text	style="font-size: 36rpx; font-weight: 600;">{{item.name}}</text><text>{{item.sex==0?'女士':'先生'}}</text>
+							<text>{{item.phone}}</text>
 						</view>
 						<view class="street">
 							{{item.address}}
@@ -16,8 +16,8 @@
 							<text class="tag">{{item.tag}}</text><text>{{item.address_detail}}</text>
 						</view>
 					</view>
-
 				</u-radio>
+				<u-button size="mini" type="error" style="width: 100upx;margin: 0;" @click="deleteAddress(item)">删除</u-button>
 			</view>
 		</u-radio-group>
 		<!-- 新增收货地址 -->
@@ -34,44 +34,51 @@
 </template>
 
 <script>
-	import { $addressGetGood } from '../../../apis/zjl-port.js'
+	import { $address_list, $user_msg, $del_address } from '../../../apis/jz-port.js'
 	export default {
 		data() {
 			return {
-				addressList: '',
 				name: '',
-				numindex: 0
+				numindex: 0,
+				userId:2,
+				addressList:[]
 			}
 		},
+		onLoad() {
+			// $user_msg().then(val=>{
+			// 	console.log(val)
+			// })
+			$address_list(this.userId).then(val=>{
+				console.log(val)
+				this.addressList=val.data
+			})
+		
+		},
 		methods: {
-			onLoad() {
-				$addressGetGood(75382).then((res) => {
-					this.$data.addressList = res.data
-					this.$data.name = res.data[0].name
-					console.log(res);
-				})
-
-			},
 			page_path() {
 				uni.navigateTo({
-					url: '/pages/addAddress/addAddress',
+					url: '/pages/pub/order/addAddress',
 				});
 			},
-			radioGroupChange(e) {
+			radioGroupChange(e){
 				console.log(e);
 			},
-			radioChange(e) {
+			radioChange(e){
 				this.$data.numindex = e
 				uni.navigateBack()
 			},
-			onUnload() {
-				uni.setStorage({
-					key: "address",
-					data: this.$data.addressList[this.$data.numindex]
-				});
+			deleteAddress(item){
+				console.log(item)
+				$del_address(item).then(val=>{
+					this.$router.go(0)
+				})
 			}
-
-
+		},
+		onUnload() {
+			uni.setStorage({
+				key: "address",
+				data: this.$data.addressList[this.$data.numindex]
+			});
 		}
 	}
 </script>
@@ -112,7 +119,8 @@
 		box-sizing: border-box;
 		border-bottom: 1rpx solid #F5F5F5;
 		display: flex;
-
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.u-radio-group {

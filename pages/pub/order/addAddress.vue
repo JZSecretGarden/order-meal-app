@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import {$getEvaluate} from '../../../apis/zjl-port.js'
+
 	export default {
 		data() {
 			return {
@@ -16,9 +16,7 @@
 			
 		},
 		onLoad() {
-			$getEvaluate(1,{limit:3}).then((res)=>{
-				console.log(res);
-			})
+		
 		}
 	}
 </script>

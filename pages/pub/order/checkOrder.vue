@@ -6,8 +6,8 @@
 			<!-- 有地址时显示 -->
 			<view class="message" v-if="address!=''">
 				<view class="info">
-					<text
-						style="font-size: 36rpx; font-weight: 600;">{{address.name}}</text><text>{{address.sex==0?'女士':'先生'}}</text><text>{{address.phone}}</text>
+					<text	style="font-size: 36rpx; font-weight: 600;">{{address.name}}</text>
+					<text>{{address.sex==0?'女士':'先生'}}</text><text>{{address.phone}}</text>
 				</view>
 				<view class="street">
 					{{address.address}}
@@ -41,7 +41,7 @@
 			<view class="way">
 				支付方式
 			</view>
-			<view class="pay_line" @click="openPop">
+			<view class="pay_line" @click="show=true">
 				<text space="ensp" decode='true'>在线支付 </text><u-icon name="arrow-right" color="#aaa" size='30'></u-icon>
 			</view>
 		</view>
@@ -109,7 +109,7 @@
 	</view>
 </template>
 
-<script>
+<script scoped>
 	export default {
 		data() {
 			return {
@@ -122,9 +122,9 @@
 			}
 		},
 		methods: {
-			addressPath() {
+			addressPath() {		//选择收货地址
 				uni.navigateTo({
-					url: '/pages/choseAddress/choseAddress'
+					url: '/pages/pub/order/choseAddress'
 				})
 			},
 			remarkPath(){
@@ -139,13 +139,9 @@
 			},
 			payPath(){
 				uni.navigateTo({
-					url:'/pages/payLine/payLine'
+					url:'/pages/pub/order/payLine'
 				})
 			},
-			openPop(){
-				this.show = true
-				console.log(this.show)
-			}
 		},
 		onLoad(option) {
 			let _this = this
