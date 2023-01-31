@@ -258,6 +258,7 @@
                 "enablePullDownRefresh": false
             }
             
+<<<<<<< HEAD
         }
         ,{
             "path" : "pages/pub/my-points/my-points",
@@ -290,6 +291,19 @@
             }
             
         }
+=======
+        },
+		{
+		    "path" : "pages/pub/order/searchAddress",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "搜索",
+		        "enablePullDownRefresh": false,
+		 		"navigationBarBackgroundColor": "#3190e8",
+		 		"navigationBarTextStyle": "white"
+		    }
+		}
+>>>>>>> 1e811f3b107758d91737aba7b338191c20935821
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

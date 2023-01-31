@@ -7,6 +7,8 @@
 				<u-icon :name="iconName(index)" size="14" :color="iconColor(index)" ></u-icon>
 			</view>
 		</view>
+		<!-- 遮罩层 -->
+		<view class="shade" v-show="openPopIndex!=-1" @click="closePop">
 		<TransitionGroup name="popshow">
 		<!-- 弹窗1 分类 -->
 			<view class="pop1 pop" v-show="openPopIndex==0" key="1">
@@ -52,15 +54,13 @@
 				</view>
 			</view>
 		</TransitionGroup>
-		<!-- 遮罩层 -->
-		<view class="shade" v-show="openPopIndex!=-1" @click="closePop"></view>
+		</view>
 	</view>
 </template>
 
 <script>
 	import { $food_class } from '../../apis/jz-port.js'
 	import { nextTick } from "vue"
-	import icon from 'uview-ui/libs/config/props/icon'
 	export default {
 		data() {
 			return {
@@ -179,6 +179,7 @@
 	}	
 	.wrap{
 		position: relative;
+		z-index: 100;
 	}
 	.top-wrap{
 		display: flex;
@@ -306,9 +307,5 @@
 		width: 100vw;
 		height: 100vh;
 		background-color: rgba(0, 0, 0, 0.4);
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: -1;
 	}
 </style>
