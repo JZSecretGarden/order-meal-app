@@ -247,7 +247,17 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/pub/order/searchAddress",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "搜索",
+		        "enablePullDownRefresh": false,
+		 		"navigationBarBackgroundColor": "#3190e8",
+		 		"navigationBarTextStyle": "white"
+		    }
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
