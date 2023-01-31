@@ -21,7 +21,7 @@
 		}, {
 			"path": "pages/pub/shop/shop",
 			"style": {
-				"navigationBarTitleText": "分类",
+				"navigationBarTitleText": "商铺",
 				"enablePullDownRefresh": false
 			}
 
@@ -155,7 +155,8 @@
 		}, {
 			"path": "pages/pub/download/download",
 			"style": {
-				"navigationBarTitleText": "下载饿了么"
+				"navigationBarTitleText": "下载饿了么",
+				"enablePullDownRefresh": false
 			}
 		}, {
 			"path": "pages/pub/user-info/user-info",
