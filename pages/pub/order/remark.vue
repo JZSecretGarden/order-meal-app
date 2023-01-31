@@ -93,7 +93,6 @@
 						uni.navigateBack()
 					}
 				})
-				
 			}
 		}
 	}

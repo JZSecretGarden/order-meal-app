@@ -3,9 +3,9 @@
 	<view class="home-box">
 		<view class="home-box-top">
 			<view class="home-top-serch">
-				<view class="search">上到</view>
-				<view class="adress">成都环球中心天堂沙发啊</view>
-				<view class="login" @click="gotoLogin()">登录|注册</view>
+				<view class="search">搜索</view>
+				<view class="adress">{{selectCity.address}}</view>
+				<view class="login"><text @click="gotoLogin()" >登录</text><text style="margin: 0 10upx;">|</text><text @click="gotoRegister()">注册</text></view>
 			</view>
 			<swiper class="home-top-wripper" indicator-dots>
 				<swiper-item style="display: flex; flex-wrap: wrap;">
@@ -93,10 +93,24 @@
 			return {
 				foodClassifitonone: [], //初始话食品分类列表数据 1
 				foodClassifitontwo: [], //初始话食品分类列表数据 2
-				nearbyMerchants: []
+				nearbyMerchants: [],
+				selectCity:{},	//当前选择城市
 			}
 		},
-		onLoad() {
+		onLoad(options) {
+			let _this = this
+			//获取选择城市
+			uni.getStorage({
+				key:"city",
+				success(res){
+					_this.selectCity = res.data
+					console.log(_this.selectCity)
+				}
+			})
+			const eventChannel = this.getOpenerEventChannel();
+			eventChannel.on('city',val=>{
+				console.log(val)
+			})
 			// 获取食品列表
 			$fetch_indexentry().then(res => {
 				this.foodClassifitonone = res.data.slice(0, 8)
@@ -136,6 +150,18 @@
 				uni.navigateTo({
 					url:'/pages/pub/shop/shop?shop_id='+v.id
 
+				})
+			},
+			// 点击登录跳转登录页面
+			gotoLogin(){
+				uni.navigateTo({
+					url:"/pages/pub/login/login"
+				})
+			},
+			// 点击跳转注册页面
+			gotoRegister(){
+				uni.navigateTo({
+					url:"/pages/pub/login/login"
 				})
 			}
 		}

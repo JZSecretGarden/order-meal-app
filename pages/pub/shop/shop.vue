@@ -2,11 +2,11 @@
 	<view class="page">
 		<!-- 顶部 商家详情 -->
 		<view class="top" @click="jumpShopDetail">
-			<image class="user-img" src="../../../static/logo.png" mode="aspectFill"></image>
+			<image class="user-img" :src="'https://elm.cangdu.org/img/'+shopMsg.image_path" mode="aspectFill"></image>
 			<view class="user-msg">
-				<view style='font-size: 18px;font-weight: bold;'>用户名称</view>
-				<view class="">商家配送/分钟送达/配送费￥5</view>
-				<view class="">公告：欢迎光临，用餐高峰请提前下单，谢谢</view>
+				<view style='font-size: 18px;font-weight: bold;'>{{shopMsg.name}}</view>
+				<view class="">商家配送/20分钟送达/{{shopMsg.piecewise_agent_fee.tips}}</view>
+				<view class="">公告：{{shopMsg.promotion_info}}</view>
 			</view>
 			<image class="go-icon" src="../../../static/pub/前进.png" mode=""></image>
 		</view>
@@ -214,12 +214,13 @@
 </template>
 
 <script>
-	import { $commodity_list , $comment_class, $comment_content, $comment_scores, $add_car } from 'apis/jz-port.js'
+	import { $commodity_list , $comment_class, $comment_content, $comment_scores, $add_car, $shop_detail } from 'apis/jz-port.js'
 	import { nextTick } from "vue"
 	export default {
 		data() {
 			return {
 				shopId:0,	//商铺id
+				shopMsg:[],
 				tabData: ['商品', '评价'],
 				tabActiveIndex:0, //选中tab下标
 				list: [],
@@ -415,6 +416,11 @@
 		},
 		onLoad(option) {
 			this.shopId = option.shop_id
+			//获取商铺详情
+			$shop_detail(this.shopId).then(val=>{
+				console.log(val)
+				this.shopMsg = val.data
+			})
 			//请求商品数据
 			$commodity_list({restaurant_id:this.shopId}).then((el) => {
 				el.data.forEach(item=>{

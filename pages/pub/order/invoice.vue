@@ -1,9 +1,7 @@
 <template>
 	<view>
 		<view class="pad">
-			<u-radio-group v-model="value" width='100%'>
-				<u-radio width='100%' active-color='#4cd964' name='online'> 不需要发票抬头</u-radio>
-			</u-radio-group>
+			<u-checkbox shape="circle" 	v-model="needInvoice" 	@change="checkboxChange" name="need">需要发票抬头</u-checkbox>
 		</view>
 		<button @click="sure">确定</button>
 	</view>
@@ -14,13 +12,21 @@
 		data() {
 			return {
 				value: '',
-				show: ''
+				show: '',
+				needInvoice:false
 			}
 		},
 		methods: {
 			sure(){
 				uni.navigateBack()
+			},
+			checkboxChange(e){
+				console.log(e)
 			}
+		},
+		onLoad(options){
+			const eventChannel = this.getOpenerEventChannel();
+			eventChannel.emit('needInvocie',this.needInvoice);
 		}
 	}
 </script>
@@ -39,6 +45,7 @@
 		display: flex;
 		background-color: white;
 		margin-top: 30rpx;
+		padding-left: 40upx;
 	}
 	.u-radio-group{
 		width: 100%;

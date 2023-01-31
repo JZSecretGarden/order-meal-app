@@ -47,8 +47,7 @@
 		</view>
 		<!-- 弹出层 -->
 		<u-popup v-model="show" mode="bottom" height="30%" >
-		      <view class="pop_top"><view class="way">支付方式</view></view>
-		      
+		      <view class="pop_top"><view class="way">支付方式</view></view>		      
 		      <u-radio-group v-model="value" width='100%'>
 		       <u-radio width='100%' disabled='ture'> <text style="color: #ccc;">货到付款(商家不支持货到付款)</text></u-radio>
 		       <u-radio width='100%' active-color='#4cd964' name='online'> 在线支付</u-radio>
@@ -127,14 +126,19 @@
 					url: '/pages/pub/order/choseAddress'
 				})
 			},
-			remarkPath(){
+			remarkPath(){		//跳转订单备注页面
 				uni.navigateTo({
-					url:'/pages/remark/remark'
+					url:'/pages/pub/order/remark'
 				})
 			},
-			invoicekPath(){
+			invoicekPath(){		//跳转发票页面
 				uni.navigateTo({
-					url:'/pages/invoice/invoice'
+					url:'/pages/pub/order/invoice',
+					events:{
+						needInvocie(data){
+							console.log(data)
+						}
+					}
 				})
 			},
 			payPath(){

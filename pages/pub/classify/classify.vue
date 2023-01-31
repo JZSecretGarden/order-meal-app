@@ -1,8 +1,7 @@
 <template>
 	<view>
-			<classify-com></classify-com>
-		
-		<view>
+		<classify-com></classify-com>		
+		<view style="margin-top: 80upx;">
 			<!-- 附近商家 -->
 			<view class="shop_list_container">
 				<view class="shop_header">
@@ -50,8 +49,6 @@
 							</view>
 						</view>
 					</view>
-			
-			
 				</view>
 			</view>
 		</view>
@@ -74,8 +71,7 @@
 		// components:{
 		// 	 classifyCom
 		// },
-		onLoad(v) {
-			
+		onLoad(v) {			
 			// this.title = v.title
 			console.log(11)
 			$fetch_restaurants({
@@ -84,11 +80,15 @@
 			}).then(res => {
 				console.log(res.data[1].piecewise_agent_fee.tips)
 				this.nearbyMerchants = res.data
-			
 			})
 		},
 		methods: {
-			
+			goShopping(item){
+				console.log(item)
+				uni.navigateTo({
+					url:"/pages/pub/shop/shop?shop_id="+item.id
+				})
+			}
 		}
 	}
 </script>

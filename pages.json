@@ -258,7 +258,6 @@
                 "enablePullDownRefresh": false
             }
             
-<<<<<<< HEAD
         }
         ,{
             "path" : "pages/pub/my-points/my-points",
@@ -290,8 +289,7 @@
 				"navigationBarTextStyle": "white"
             }
             
-        }
-=======
+
         },
 		{
 		    "path" : "pages/pub/order/searchAddress",
@@ -303,7 +301,7 @@
 		 		"navigationBarTextStyle": "white"
 		    }
 		}
->>>>>>> 1e811f3b107758d91737aba7b338191c20935821
+
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

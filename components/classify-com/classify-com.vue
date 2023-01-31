@@ -33,7 +33,7 @@
 				</view>
 			</view>
 		<!-- 弹窗3 筛选 -->
-			<view class="pop3 pop" v-show="openPopIndex==2" key="3">
+			<view class="pop3 pop" v-show="openPopIndex==2" key="3" @click.stop>
 				<view class="" style="background-color: #fff;">
 					<view class="screen-box">
 						<view class="screen-item" v-for="(item,index) in screenData">
@@ -178,7 +178,9 @@
 		opacity: 0;
 	}	
 	.wrap{
-		position: relative;
+		width: 750upx;
+		position: fixed;
+		top: 80upx;
 		z-index: 100;
 	}
 	.top-wrap{

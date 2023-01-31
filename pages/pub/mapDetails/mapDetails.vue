@@ -7,7 +7,7 @@
 		</view>
 		<view style="margin-top: 20upx;" @click="doSearch()"><button size="default" style="background-color: #3190e8;color: #ffffff;width: 650upx;">提交</button></view>
 		<view style="margin-top: 40upx;width: 600upx;">
-			<view v-for="(item, index) in dataList" :key="item" style="border-top: 1upx solid #e4e4e4;padding: 12upx 0;" @click="gotoAddress()">
+			<view v-for="(item, index) in dataList" :key="item" style="border-top: 1upx solid #e4e4e4;padding: 12upx 0;" @click="gotoAddress(item)">
 				<text>{{ item.name }}</text>
 				<view class="ppp" style="font-size: 22upx;color: #666666;">{{ item.address }}</view>
 			</view>
@@ -62,8 +62,11 @@ export default {
 			})
 
 		},
-		gotoAddress() {
-			uni.showToast({ title: '跳转', icon: 'none' });
+		gotoAddress(item) {
+			uni.setStorage({ key:"city", data:item })	//将选择城市存储于本地
+			uni.switchTab({
+				url:"/pages/home/home",	//跳转tab页面
+			})
 		},
 		//执行搜索
 		doSearch(keyword) {
