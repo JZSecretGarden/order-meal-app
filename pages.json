@@ -4,6 +4,15 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "城市",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190E8",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "",
@@ -46,9 +55,10 @@
 		{
 			"path": "pages/search/search",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "搜索",
 				"enablePullDownRefresh": false,
-				"navigationStyle": "custom"
+				"navigationBarBackgroundColor": "#3190E8",
+				"navigationBarTextStyle": "white"
 			}
 
 		}, {
@@ -65,15 +75,6 @@
 			"path": "pages/my/my",
 			"style": {
 				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#3190E8",
-				"navigationBarTextStyle": "white"
-			}
-
-		}, {
-			"path": "pages/map/map",
-			"style": {
-				"navigationBarTitleText": "城市",
 				"enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#3190E8",
 				"navigationBarTextStyle": "white"
@@ -352,9 +353,6 @@
 	}, {
 		"text": "我的",
 		"pagePath": "pages/my/my"
-	}, {
-		"text": "城市",
-		"pagePath": "pages/map/map"
 	}]
 }
 }

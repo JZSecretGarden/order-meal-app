@@ -1,12 +1,7 @@
 <!-- 搜索页 -->
 <template>
 	<view class="search-box">
-		<view class="search-box-back">
-			<view>
-				<image style="width: 30px;height: 30px;" src="../../static/my/arrow-in.png">
-			</view>
-			<view>搜索</view>
-		</view>
+		
 		<view class="search-box-input">
 			<u-input v-model="keyword" type="text" style="width: 70%;background-color: #f2f2f2;"
 				placeholder="请输入商家或美食名称" @focus="funcInput"/>
