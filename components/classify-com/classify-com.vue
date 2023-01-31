@@ -11,12 +11,23 @@
 		<view class="shade" v-show="openPopIndex!=-1" @click="closePop">
 		<TransitionGroup name="popshow">
 		<!-- 弹窗1 分类 -->
-			<view class="pop1 pop" v-show="openPopIndex==0" key="1">
-				<scroll-view scroll-y="true">
-					<view class="pop1-left-menu">
-						<view class="left-menu-item" v-for="(item,index) in classData" :key="item.id" @click="clickCommodity(item.title,item.id)">
+			<view class="pop1 pop" v-show="openPopIndex==0" key="1" @click.stop>
+				<scroll-view scroll-y="true" class="scroll-wrap">
+					<!-- 左分类 -->
+					<view class="pop1-left-menu class-menu">
+						<view class="left-menu-item" v-for="(item,index) in classData" :key="item.id" @click="clickFristMneu(index)">
 							<image :src="'https://fuss10.elemecdn.com/'+item.image_url" mode="aspectFill"></image>
-							<text>{{item.title}}</text> 
+							<text>{{item.name}}</text> 
+							<view class="" style="font-size: 12px;background-color: #f4f4f4;border-radius: 20upx;padding: 2px 4px;">{{item.count}}</view>
+							<u-icon class="item-icon" name="arrow-right-double"></u-icon>
+						</view>
+					</view>
+				</scroll-view >
+				<!-- 右分类 -->
+				<scroll-view scroll-y="true" class="scroll-wrap">
+					<view class="pop1-right-menu class-menu">
+						<view class="right-menu-item" v-for="(item,index) in classData[fristMenuIndex].sub_categories" @click="clickCommodity(item.name,item.id)">
+							<text>{{item.name}}</text> 
 							<u-icon class="item-icon" name="arrow-right-double"></u-icon>
 						</view>
 					</view>
@@ -39,9 +50,9 @@
 						<view class="screen-item" v-for="(item,index) in screenData">
 							<view class="screen-title"><text>{{item.title}}</text><text v-if="item.multiple" >(可以多选)</text></view>
 							<view class="screen-child-wrap">							
-								<view class="screen-child-item" :class="{'active-screen-child':selectScreen[index][c_index]==child.text || selectScreen[index]==child.text}" v-for="(child,c_index) in item.data" @click="clickScreenChild(index,c_index)">
-									<u-icon v-show="selectScreen[index][c_index]==child.text || selectScreen[index]==child.text" class="screen-active-icon" name="checkbox-mark" color="#3190e8" size="18"></u-icon>
-									<image v-show="selectScreen[index][c_index]==null || selectScreen[index]==''" :src="child.img" mode=""></image>
+								<view class="screen-child-item" :class="{'active-screen-child':selectScreen[index]==child.text}" v-for="(child,c_index) in item.data" @click="clickScreenChild(child)">
+									<u-icon v-show="!screenItemImg(child.id)" class="screen-active-icon" name="checkbox-mark" color="#3190e8" size="18"></u-icon>
+									<image v-show="screenItemImg(child.id)" :src="child.img" mode=""></image>
 									<text>{{child.text}}</text>
 								</view>
 							</view>
@@ -68,12 +79,14 @@
 				selectText:['分类','排序','筛选'],
 				openPopIndex:-1,	//当前打开界面下标
 				classData:[],	//分类数据
+				fristMenuIndex:0, //当前一级菜单下标
 				sortText:['智能排序','距离最近','销量最高','起送价最低','配送速度最快','评分最高'],
+				sortId:[4,5,6,1,2,3],
 				sortIcon:[],
-				selectSortIndex:-1,	//当前排序选中下标
+				selectSortIndex:0,	//当前排序选中下标
 				screenData:[
-					{title:'配送方式',data:[{img:'',text:'蜂鸟配送'}],multiple:false},
-					{title:'商家属性',data:[{img:'',text:'品牌商家'},{img:'',text:'外卖保'},{img:'',text:'准时达'},{img:'',text:'新店'},{img:'',text:'在线支付'},{img:'',text:'开发票'}],multiple:true},
+					{title:'配送方式',data:[{img:'',text:'蜂鸟配送', id:1}],multiple:false},
+					{title:'商家属性',data:[{img:'',text:'品牌商家', id:8},{img:'',text:'外卖保',id:7},{img:'',text:'准时达',id:9},{img:'',text:'新店',id:5},{img:'',text:'在线支付',id:3},{img:'',text:'开发票',id:4}],multiple:true},
 				],
 				selectScreen:[],
 				sureBtn:{
@@ -88,56 +101,38 @@
 			},
 			iconColor(){	//改变图标颜色
 				return index=> this.openPopIndex==index? '#3190e8':''
+			},
+			screenItemImg(){	//筛选元素图片显示
+				return id=>!this.selectScreen.includes(id)
 			}
 		},
 		methods: {
 			clickItem(index){	//点击分类模块元素以打开弹窗
 				this.openPopIndex == index ? this.openPopIndex=-1 : this.openPopIndex = index
 			},
+
+			clickFristMneu(index){	//点击分类中的一级菜单
+				this.fristMenuIndex = index
+			},
 			clickCommodity(item,id){//点击分类中的商品
 				this.selectText[0] = item
 				this.closePop()
-				this.$emit('className',id)
-				console.log('正在刷新'+item+'的内容')
-				
+				this.$emit('className',id)				
 			},
 			clickSort(index,item){	//点击排序元素
 				this.selectSortIndex = index
+				this.$emit("sortId",this.sortId[index])
 				this.closePop()
-				console.log('当前选择的排序内容是'+item)
 			},
-			clickScreenChild(index,c_index){	//点击筛选元素
-				if(this.selectScreen[index]=='' || this.selectScreen[index][c_index]==null){
-					this.addSku(index,c_index)	//添加SKU
-				}else{
-					this.minusSku(index,c_index)	//移除SKU
-				}				
-			},
-			addSku(index,c_index){		//添加SKU
-				if(this.screenData[index].multiple){
-					this.selectScreen[index][c_index]=this.screenData[index].data[c_index].text
-					this.$set(this.selectScreen,index,this.selectScreen[index])
-				}else{
-					this.$set(this.selectScreen,index,this.screenData[index].data[c_index].text)
-				}
-			},
-			minusSku(index,c_index){		//移除SKU
-				if(this.screenData[index].multiple){
-					this.selectScreen[index][c_index]=null
-					this.$set(this.selectScreen,index,this.selectScreen[index])
-				}else{
-					this.$set(this.selectScreen,index,'')
-				}
+			clickScreenChild(item){	//点击筛选元素
+				this.selectScreen.includes(item.id)? this.selectScreen.splice(this.selectScreen.indexOf(item.id),1) :this.selectScreen.push(item.id)	
 			},
 			clearAll(){		//点击清空按钮
-				this.screenData.forEach((el,index)=>{
-					if(el.multiple){ this.$set(this.selectScreen,index,[]) }else{ this.$set(this.selectScreen,index,'') }
-				})
-				console.log('初始化selectScreen容器')
+				this.selectScreen = []
 			},
 			confirm(){	//点击确定按钮
-				console.log(this.selectScreen,'当前已选sku内容')
 				this.openPopIndex=-1				
+				this.$emit("screenData",this.selectScreen)
 			},
 			closePop(){		//关闭弹窗与遮罩层
 				this.openPopIndex=-1
@@ -145,10 +140,8 @@
 		},
 		created() {
 			$food_class().then(val=>{	//获取食品分类列表
+				console.log(val)
 				this.classData = val.data
-			}),
-			this.screenData.forEach((el,index)=>{	//根据数据内容构建容器
-				if(el.multiple){ this.selectScreen[index]=[] }else{ this.selectScreen[index]='' }
 			})
 		}
 	}
@@ -208,7 +201,7 @@
 		color: #3190e8;
 	}
 	.pop{
-		height: 700upx;
+		height: 600upx;
 	}
 	.pop>scroll-view{
 		height: 100%;
@@ -216,13 +209,34 @@
 	.pop1{
 		display: flex;
 	}
-	.pop1-left-menu,.sort-list,.screen-box{
+	.scroll-wrap{
+		width: 50%;
+	}
+	.class-menu{
 		background-color: #fff;
+		min-height: 600upx;
+	}
+	.sort-list,.screen-box{
+		background-color: #fff;
+	}
+	.pop1-left-menu{
+		background-color: #f4f4f4;
 	}
 	.left-menu-item{
 		display: flex;
 		align-items: center;
 		padding: 10upx 40upx;
+		font-size: 14px;
+		color: #565656;
+	}
+	.left-menu-item:hover{
+		background-color: #e8e8e8;
+	}
+	.right-menu-item{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 20upx 40upx;
 		font-size: 14px;
 		color: #565656;
 		border-bottom: 1px solid #f4f4f4;

@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "订单列表",
-  "enablePullDownRefresh": false,
-  "navigationBarBackgroundColor": "#3190E8",
-  "navigationBarTextStyle": "white",
-  "usingComponents": {
-    "order-list-item": "/components/order-list-item/order-list-item"
-  }
-}

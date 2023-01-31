@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "城市",
-  "enablePullDownRefresh": false,
-  "navigationBarBackgroundColor": "#3190E8",
-  "navigationBarTextStyle": "white",
-  "usingComponents": {
-    "lh-select-city": "/components/lh-select-city/index"
-  }
-}

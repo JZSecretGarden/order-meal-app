@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<classify-com @className='getId'></classify-com>		
+		<classify-com @className='getId' @sortId='getSort' @screenData="getScreen"></classify-com>		
 		<view style="margin-top: 80upx;">
 			<!-- 附近商家 -->
 			<view class="shop_list_container">
@@ -56,49 +56,50 @@
 </template>
 
 <script>
-   import {
-   	$fetch_indexentry,
-   	$fetch_restaurants
-   } from '@/apis/zm-port.js';
-   // import classifyCom from '@/components/classify-com/classify-com.vue'
+   import { $fetch_indexentry, $fetch_restaurants } from '@/apis/zm-port.js';
 	export default {
 		data() {
 			return {
 				nearbyMerchants: [],
 				title:'',
-				restaurant_category_id:''
+				RequestData:{	//列表请求参数
+					order_by:4,
+				}
 			}
 		},
-		// components:{
-		// 	 classifyCom
-		// },
 		onLoad(v) {			
-			// this.title = v.title
-			console.log(11)
-			$fetch_restaurants({
-				latitude: '22',
-				longitude: '11',
-			}).then(res => {
-				console.log(res.data[1].piecewise_agent_fee.tips)
-				this.nearbyMerchants = res.data
+			let _this=this
+			uni.getStorage({
+				key:"city",
+				success(res){
+					_this.RequestData.latitude = res.data.latitude
+					_this.RequestData.longitude = res.data.longitude
+				}
 			})
+			this.requestList()
 		},
 		methods: {
 			goShopping(item){
-				console.log(item)
 				uni.navigateTo({
 					url:"/pages/pub/shop/shop?shop_id="+item.id
 				})
 			},
-			getId(e){
+			getId(e){	//获取分类ID
+				this.RequestData['restaurant_category_ids[]']=e
+				this.requestList()
+			},
+			getSort(e){	//获取排序ID
+				this.RequestData.order_by=e
+				this.requestList()
+			},
+			getScreen(e){	//获取筛选ID
 				console.log(e)
-				this.restaurant_category_id = e
-				$fetch_restaurants({
-					latitude: '22',
-					longitude: '11',
-					restaurant_category_id:this.restaurant_category_id
-				}).then(res => {
-					console.log(res.data[1].piecewise_agent_fee.tips)
+				this.RequestData['support_ids[]']=e
+				this.requestList()
+			},
+			requestList(){	
+				$fetch_restaurants(this.RequestData).then(res => {
+					console.log(res)
 					this.nearbyMerchants = res.data
 				})
 			}

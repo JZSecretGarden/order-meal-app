@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "服务中心",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "serve-item": "/components/serve-item/serve-item"
-  }
-}
