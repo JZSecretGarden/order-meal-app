@@ -1,6 +1,7 @@
 <template>
 	<view>
-		<classify-com></classify-com>
+			<classify-com></classify-com>
+		
 		<view>
 			<!-- 附近商家 -->
 			<view class="shop_list_container">
@@ -61,7 +62,8 @@
    import {
    	$fetch_indexentry,
    	$fetch_restaurants
-   } from '@/apis/zm-port.js'
+   } from '@/apis/zm-port.js';
+   // import classifyCom from '@/components/classify-com/classify-com.vue'
 	export default {
 		data() {
 			return {
@@ -69,10 +71,13 @@
 				title:''
 			}
 		},
+		// components:{
+		// 	 classifyCom
+		// },
 		onLoad(v) {
 			
 			// this.title = v.title
-			console.log(v)
+			console.log(11)
 			$fetch_restaurants({
 				latitude: '22',
 				longitude: '11'
