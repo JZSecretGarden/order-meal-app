@@ -134,11 +134,9 @@
 			goShopping(v) {
 				console.log(v)
 				uni.navigateTo({
-                    url:'/pages/pub/shop/shop?shop_id='+v.id
+					url:'/pages/pub/shop/shop?shop_id='+v.id
 				})
-				
 			}
-
 		}
 	}
 </script>

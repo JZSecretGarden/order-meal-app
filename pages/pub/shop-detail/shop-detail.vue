@@ -35,6 +35,7 @@
 			</view>
 		</view>
 	</view>
+	
 </template>
 
 <script>
@@ -42,7 +43,8 @@
 	export default {
 		data() {
 			return {
-				data:{}	//商铺详情的数据容器
+				data:{}	,//商铺详情的数据容器
+				show:true
 			}
 		},
 		methods: {

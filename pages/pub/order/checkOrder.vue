@@ -6,8 +6,8 @@
 			<!-- 有地址时显示 -->
 			<view class="message" v-if="address!=''">
 				<view class="info">
-					<text
-						style="font-size: 36rpx; font-weight: 600;">{{address.name}}</text><text>{{address.sex==0?'女士':'先生'}}</text><text>{{address.phone}}</text>
+					<text	style="font-size: 36rpx; font-weight: 600;">{{address.name}}</text>
+					<text>{{address.sex==0?'女士':'先生'}}</text><text>{{address.phone}}</text>
 				</view>
 				<view class="street">
 					{{address.address}}
@@ -29,7 +29,7 @@
 			<view class="arriveText">送达时间</view>
 			<view class="finish">
 				<view class="finish_top">
-					<text space="ensp" decode='true'>尽快送达 | 预计{{time}}</text>
+					<text space="ensp" decode='true'>尽快送达 | 预计{{allData.delivery_reach_time}}</text>
 				</view>
 				<view class="finish_bot">
 					<text style="background-color: #3190E8; ; color: white;padding: 2rpx 10rpx;border-radius: 8rpx;float: right;">蜂鸟专送</text>		
@@ -41,41 +41,41 @@
 			<view class="way">
 				支付方式
 			</view>
-			<view class="pay_line">
-				<text space="ensp" decode='true'>在线支付 </text><u-icon name="arrow-right" color="#aaa" size='30' @click="show=true">132</u-icon>
+			<view class="pay_line" @click="show=true">
+				<text space="ensp" decode='true'>在线支付 </text><u-icon name="arrow-right" color="#aaa" size='30'></u-icon>
 			</view>
-			<!-- 弹出层 -->
-			<u-popup v-model="show" mode="bottom" height="30%" >
-						<view class="pop_top"><view class="way">支付方式</view></view>
-						
-						<u-radio-group v-model="value" width='100%'>
-							<u-radio width='100%' disabled='ture'> <text style="color: #ccc;">货到付款(商家不支持货到付款)</text></u-radio>
-							<u-radio width='100%' active-color='#4cd964' name='online'> 在线支付</u-radio>
-						</u-radio-group>
-			</u-popup>
 		</view>
+		<!-- 弹出层 -->
+		<u-popup v-model="show" mode="bottom" height="30%" >
+		      <view class="pop_top"><view class="way">支付方式</view></view>
+		      
+		      <u-radio-group v-model="value" width='100%'>
+		       <u-radio width='100%' disabled='ture'> <text style="color: #ccc;">货到付款(商家不支持货到付款)</text></u-radio>
+		       <u-radio width='100%' active-color='#4cd964' name='online'> 在线支付</u-radio>
+		      </u-radio-group>
+		   </u-popup>
 		<view class="red pad">
 			<text>红包</text><text>暂时只在饿了么 APP 中支持</text>
 		</view>
 		<!-- 结算商品信息 -->
 		<view class="good_top pad">
 			<view class="effect">
-				<img src="https://img1.baidu.com/it/u=1005175752,1231986319&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500" alt="" style='width: 50rpx;height: 50rpx;'><text style="margin-left: 10rpx; font-size: 36rpx;" > 效果演示</text>
+				<img :src="'https://elm.cangdu.org/img/'+allData.cart.restaurant_info.image_path" alt="" style='width: 50rpx;height: 50rpx;'><text style="margin-left: 10rpx; font-size: 36rpx;" > {{allData.cart.restaurant_info.name}}</text>
 			</view>
 		</view>
 		<view class="pad good_info ">
-			<view class="good" v-for="(item,index) in good" :key='index'>
-				<view>{{item.name}}</view><view ><text style="color: #f60;">x{{item.quantity}}</text><text>￥{{item.price}}</text></view>
+			<view class="good" v-for="(item,index) in allData.cart.groups" :key='index'>
+				<view>{{item[0].name}}</view><view ><text style="color: #f60;">x{{item[0].quantity}}</text><text>￥{{item[0].price}}</text></view>
+			</view>
+			<view class="good" v-for="item in allData.cart.extra">
+				<view>{{item.name}}</view><text>￥{{item.price}}</text>
 			</view>
 			<view class="good">
-				<view>餐盒</view><text>￥666</text>
-			</view>
-			<view class="good">
-				<view>配送费</view><text>￥6</text>
+				<view>配送费</view><text>￥{{allData.cart.deliver_amount}}</text>
 			</view>
 		</view>
 		<view class="good pad" style="padding-left:30rpx ;padding-right: 30rpx;">
-				<view>订单</view><text style="color: #f60;">￥{{money}}</text>
+				<view>订单</view><text style="color: #f60;">￥{{allData.cart.original_total}}</text>
 		</view>
 		<!-- 备注 -->
 		<view class="remark pad">
@@ -92,70 +92,39 @@
 				发票抬头
 			</view>
 			<view class="pay_line">
-				<text space="ensp" decode='true'>不需要发票 </text><u-icon name="arrow-right" color="#aaa" size='30' @click="invoicekPath">132</u-icon>
+				<text space="ensp" decode='true'>{{allData.invoice.status_text}}</text><u-icon name="arrow-right" color="#aaa" size='30' @click="invoicekPath">132</u-icon>
 			</view>
 		</view>
+		<!-- 下单按钮栏 -->
 		<view class="end">
 			<view class="left">
-				<view style="font-size: 34rpx;">待支付￥{{money}}</view>
+				<view style="font-size: 34rpx;">待支付￥{{allData.cart.original_total}}</view>
 			</view>
 			<view class="right" @click="payPath">
 				确认下单
 			</view>
 		</view>
+	
+			
 	</view>
 </template>
 
-<script>
+<script scoped>
 	export default {
 		data() {
 			return {
+				allData:{},	//当前购物车数据
 				address: '',
 				time: '',
 				show:false,
 				value:"online",
-				good:[{name:'热辣香骨鸡',price:'9.9',quantity:'1'},{name:'吮指原味鸡',price:'9.9',quantity:'2'},{name:'葡式蛋挞',price:'9.9',quantity:'3'}],
-				money:0,
 				markInfo:'口味、偏好等'
 			}
 		},
 		methods: {
-			addressPath() {
+			addressPath() {		//选择收货地址
 				uni.navigateTo({
-					url: '/pages/choseAddress/choseAddress'
-				})
-			},
-			onLoad() {
-
-				function getLocalTime(n) {
-					return new Date(parseInt(n)).toLocaleString().substr(9, 15).substr(0, 6)
-				}
-				this.$data.time = getLocalTime(Date.now() + 60 * 60 * 1000);
-				// 计算总价
-				
-				for(let obj of this.$data.good){
-					this.$data.money+=Number(obj.price)*Number(obj.quantity)
-				}
-				this.$data.money+=666+6
-				console.log(this.$data.money);
-			},
-			onShow() {
-				let _this = this
-				uni.getStorage({
-					key: 'address',
-					success(e) {
-						_this.$data.address = e.data
-					}
-				})
-				uni.getStorage({
-					key:'markInfo',
-					success(e) {
-						if(e.data[0]=='、'){
-							e.data=e.data.substr(1,e.data.length)
-							_this.$data.markInfo = e.data
-						}
-						
-					}
+					url: '/pages/pub/order/choseAddress'
 				})
 			},
 			remarkPath(){
@@ -170,10 +139,38 @@
 			},
 			payPath(){
 				uni.navigateTo({
-					url:'/pages/payLine/payLine'
+					url:'/pages/pub/order/payLine'
 				})
-			}
-		}
+			},
+		},
+		onLoad(option) {
+			let _this = this
+			const eventChannel = this.getOpenerEventChannel();
+			eventChannel.on('carData', function(data) {
+				console.log(_this)
+				_this.allData = data.data
+				console.log(_this.allData)
+			})
+		},
+		onShow() {
+			let _this = this
+			uni.getStorage({
+				key: 'address',
+				success(e) {
+					_this.$data.address = e.data
+				}
+			})
+			uni.getStorage({
+				key:'markInfo',
+				success(e) {
+					if(e.data[0]=='、'){
+						e.data=e.data.substr(1,e.data.length)
+						_this.$data.markInfo = e.data
+					}					
+				}
+			})
+		
+		},
 	}
 </script>
 
