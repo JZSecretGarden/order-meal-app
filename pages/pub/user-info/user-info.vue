@@ -21,7 +21,9 @@
 		<view class="tip">
 			安全设置
 		</view>
-		<ServeItem title='登录密码'></ServeItem>
+		<view class="" @click="rePassword">
+			<ServeItem title='重置密码'></ServeItem>
+		</view>
 		<view class="btn" @click="removeLogin">
 			<button style="background-color: #D8584A; color: #fff;">退出登录</button>
 		</view>
@@ -56,7 +58,7 @@
 			},
 			toAddress(){
 				uni.navigateTo({
-					url:''
+					url:'/pages/pub/order/choseAddress'
 				})
 			},
 			removeLogin(){
@@ -65,6 +67,11 @@
 					uni.showToast({
 						title:res.data.message
 					})
+				})
+			},
+			rePassword(){
+				uni.navigateTo({
+					url:'/pages/pub/resPassword/resPassword'
 				})
 			}
 		}

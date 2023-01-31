@@ -1,18 +1,18 @@
 <template>
 	<view class="container">
 		<view class="menu">
-			<view class="menu-item">
-				<view class="name">
+			<view class="menu-item"  @click="changeIndex(0)">
+				<view class="name" :class="[index == 0? 'active':'']">
 					红包
 				</view>
 			</view>
-			<view class="menu-item">
-				<view class="name">
+			<view class="menu-item" @click="changeIndex(1)" >
+				<view class="name" :class="[index == 1? 'active':'']">
 					商家代金券
 				</view>
 			</view>
 		</view>
-		<swiper :indicator-dots="false"   style="flex: 1;">
+		<swiper :indicator-dots="false"   style="flex: 1;" :current="index">
 			<swiper-item>
 				<view class="swiper-item">
 					<view class="top">
@@ -53,20 +53,27 @@
 							</view>
 							
 						</view>
+						<view class="" style="padding:20upx 25upx;color: #aaa;">
+							限品类:快餐便当、特色菜系、小吃夜宵、甜品饮品、异国料理
+						</view>
 					</view>
 				</view>
 			</swiper-item>
 			<swiper-item>
-				<view class="swiper-item"></view>
+				<view class="swiper-item" style="text-align: center;margin-top: 300upx;">
+					非客户端或客户端版本过低
+					无法使用代金券
+				</view>
 			</swiper-item>
 		</swiper>
+		
 		<view class="menu">
 			<view class="menu-item">
-				<view class="name">
+				<view class="name" @click="toExchange">
 					兑换有奖
 				</view>
 			</view>
-			<view class="menu-item" style="border-left: 1px solid #f5f5f5;">
+			<view class="menu-item" @click="toRecommend" style="border-left: 1px solid #f5f5f5;">
 				<view class="name">
 					推荐有奖
 				</view>
@@ -81,7 +88,8 @@
 	export default {
 		data() {
 			return {
-				data:''
+				data:'',
+				index:0
 			}
 		},
 		onLoad() {
@@ -98,6 +106,19 @@
 				uni.navigateTo({
 					url:'/pages/pub/point-intro/point-intro'
 				})
+			},
+			toExchange(){
+				uni.navigateTo({
+					url:'/pages/pub/exchange-hongbao/exchange-hongbao'
+				})
+			},
+			toRecommend(){
+				uni.navigateTo({
+					url:'/pages/pub/recommend/recommend'
+				})
+			},
+			changeIndex(id){
+				this.index = id
 			}
 		}
 	}
@@ -154,5 +175,9 @@
 		flex:1;
 		padding-left: 20upx;
 		padding-right: 20upx;
+	}
+	.active{
+		border-bottom: 3upx solid #3190E8;
+		color: #3190E8;
 	}
 </style>

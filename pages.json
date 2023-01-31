@@ -25,7 +25,7 @@
 				"enablePullDownRefresh": false
 			}
 
-		}, 
+		},
 		// {
 		// 	"path": "pages/pub/classify/classify",
 		// 	"style": {
@@ -93,14 +93,14 @@
 				"enablePullDownRefresh": false
 			}
 
-		},{
+		}, {
 			"path": "pages/pub/mapDetails/mapDetails",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 
-		},{
+		}, {
 			"path": "pages/pub/register/register",
 			"style": {
 				"navigationBarTitleText": "注册",
@@ -157,7 +157,7 @@
 			"style": {
 				"navigationBarTitleText": "下载饿了么"
 			}
-		},{
+		}, {
 			"path": "pages/pub/user-info/user-info",
 			"style": {
 				"navigationBarTitleText": "用户信息",
@@ -165,7 +165,7 @@
 				"navigationBarBackgroundColor": "#3190E8",
 				"navigationBarTextStyle": "white"
 			}
-		},{
+		}, {
 			"path": "pages/pub/onlinePay/onlinePay",
 			"style": {
 				"navigationBarTitleText": "在线支付",
@@ -173,7 +173,7 @@
 				"navigationBarBackgroundColor": "#3190E8",
 				"navigationBarTextStyle": "white"
 			}
-		},{
+		}, {
 			"path": "pages/pub/order_info/order_info",
 			"style": {
 				"navigationBarTitleText": "订单详情",
@@ -181,7 +181,7 @@
 				"navigationBarBackgroundColor": "#3190E8",
 				"navigationBarTextStyle": "white"
 			}
-		},{
+		}, {
 			"path": "pages/pub/order/checkOrder",
 			"style": {
 				"navigationBarTitleText": "确认订单",
@@ -189,7 +189,7 @@
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
 			}
-		
+
 		},
 		{
 			"path": "pages/pub/order/addAddress",
@@ -199,7 +199,7 @@
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
 			}
-		
+
 		},
 		{
 			"path": "pages/pub/order/choseAddress",
@@ -209,7 +209,7 @@
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
 			}
-		
+
 		},
 		{
 			"path": "pages/pub/order/remark",
@@ -219,7 +219,7 @@
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
 			}
-		
+
 		},
 		{
 			"path": "pages/pub/order/invoice",
@@ -229,7 +229,7 @@
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
 			}
-		
+
 		}, {
 			"path": "pages/pub/order/payLine",
 			"style": {
@@ -238,13 +238,11 @@
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
 			}
-		}
-	    ,{
-            "path" : "pages/pub/my-monney/my-monney",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的余额",
-                "enablePullDownRefresh": false,
+		}, {
+			"path": "pages/pub/my-monney/my-monney",
+			"style": {
+				"navigationBarTitleText": "我的余额",
+				"enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
             }
@@ -264,27 +262,36 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的积分",
-                "enablePullDownRefresh": false,
+                "enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/pub/money-intro/money-intro",
+			"style": {
+				"navigationBarTitleText": "余额说明",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/pub/my-points/my-points",
+			"style": {
+				"navigationBarTitleText": "我的积分",
+				"enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
-            }
-            
-        }
-        ,{
-            "path" : "pages/pub/point-intro/point-intro",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "积分说明",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/pub/discount-coupon/discount-coupon",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的优惠",
-                "enablePullDownRefresh": false,
+			}
+
+		}, {
+			"path": "pages/pub/point-intro/point-intro",
+			"style": {
+				"navigationBarTitleText": "积分说明",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/pub/discount-coupon/discount-coupon",
+			"style": {
+				"navigationBarTitleText": "我的优惠",
+				"enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#3190e8",
 				"navigationBarTextStyle": "white"
             }
@@ -308,24 +315,65 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+			}
+
+		
 	},
-	"uniIdRouter": {},
-	"tabBar": {
-		"list": [{
-			"text": "外卖",
-			"pagePath": "pages/home/home"
-		}, {
-			"text": "搜索",
-			"pagePath": "pages/search/search"
-		}, {
-			"text": "订单",
-			"pagePath": "pages/order/order"
-		}, {
-			"text": "我的",
-			"pagePath": "pages/my/my"
-		}, {
-			"text": "城市",
-			"pagePath": "pages/map/map"
-		}]
+	{
+		"path": "pages/pub/order/searchAddress",
+		"style": {
+			"navigationBarTitleText": "搜索",
+		 "enablePullDownRefresh": false,
+			"navigationBarBackgroundColor": "#3190e8",
+			"navigationBarTextStyle": "white"
+		}
 	}
+    ,{
+            "path" : "pages/pub/exchange-hongbao/exchange-hongbao",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "交换红包",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/pub/recommend/recommend",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "推荐有奖",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+            }
+            
+        }
+    ],
+"globalStyle": {
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "uni-app",
+	"navigationBarBackgroundColor": "#F8F8F8",
+	"backgroundColor": "#F8F8F8"
+},
+"uniIdRouter": {},
+"tabBar": {
+	"list": [{
+		"text": "外卖",
+		"pagePath": "pages/home/home"
+	}, {
+		"text": "搜索",
+		"pagePath": "pages/search/search"
+	}, {
+		"text": "订单",
+		"pagePath": "pages/order/order"
+	}, {
+		"text": "我的",
+		"pagePath": "pages/my/my"
+	}, {
+		"text": "城市",
+		"pagePath": "pages/map/map"
+	}]
+}
 }

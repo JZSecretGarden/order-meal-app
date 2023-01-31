@@ -66,7 +66,7 @@
 		methods: {
 			toOnlinePay(){
 				uni.navigateTo({
-					url:'/pages/pub/onlinePay/onlinePay'
+					url:'/pages/pub/order/payLine'
 				})
 			}
 		}
