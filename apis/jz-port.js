@@ -20,3 +20,5 @@ export const $address_list = (id)=>req('v1/users/'+id+'/addresses')
 export const $user_msg = ()=>req('v1/user','Get')
 //删除地址信息
 export const $del_address = (data)=>req('v1/users/'+data.user_id+'/addresses/'+data.id,'Delete')
+//获取城市列表
+export const $city_list = (type)=>req('v1/cities?type='+type,'Get')
