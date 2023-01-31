@@ -124,10 +124,11 @@
 		},
 		methods: {
 			toFooddetails(v) {
-				console.log(v)
-				// uni.navigateTo({
-				// 	url:'../fooddeails/fooddeails'
-				// })
+				console.log(v.title)
+				let aa = v.title
+				uni.navigateTo({
+					url:'/pages/pub/classify/classify?data='+aa
+				})
 			},
 			// 点击 附近商家 跳转到 商铺页面
 			goShopping(v) {
@@ -136,11 +137,7 @@
 					url:'/pages/pub/shop/shop?shop_id='+v.id
 
 				})
-				// uni.navigateTo({
-				// 	url: '/pages/pub/login/login' + v
-				// })
 			}
-
 		}
 	}
 </script>

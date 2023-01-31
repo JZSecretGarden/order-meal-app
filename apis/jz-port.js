@@ -12,3 +12,11 @@ export const $food_class = ()=>req('v2/index_entry','Get')
 export const $comment_scores = (id)=>req('ugc/v2/restaurants/'+id+'/ratings/scores','Get')
 //获取商铺详情
 export const $shop_detail = (id)=>req('shopping/restaurant/'+id,'Get')
+//加入购物车
+export const $add_car = (data)=>req('v1/carts/checkout','POST',data)
+//获取收货地址列表
+export const $address_list = (id)=>req('v1/users/'+id+'/addresses')
+//获取用户信息
+export const $user_msg = ()=>req('v1/user','Get')
+//删除地址信息
+export const $del_address = (data)=>req('v1/users/'+data.user_id+'/addresses/'+data.id,'Delete')
