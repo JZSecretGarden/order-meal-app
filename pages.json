@@ -239,7 +239,16 @@
 				"navigationBarTextStyle": "white"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/pub/my-monney/my-monney",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的余额",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
