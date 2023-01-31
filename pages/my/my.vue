@@ -3,15 +3,15 @@
 	<view class="container">
 		<view class="header">
 			<view class="content">
-				<view class="avatar" @click="toUserInfo()">
-					<image src="../../static/home/default.jpg" mode=""></image>
+				<view class="avatar" @click="toUserInfo(userinfo.avatar)">
+					<image :src="userinfo.avatar" mode=""></image>
 				</view>
 				<view class="phone">
 					<view class="number" @click="toLogin">
-						{{phoneNumber}}
+						{{userinfo.username}}
 					</view>
 					<view class="tip">
-						{{h_tip}}
+						{{userinfo.mobile}}
 					</view>
 				</view>
 				<view class="arrow">
@@ -20,17 +20,17 @@
 			</view>
 		</view>
 		<view class="main-top">
-			<view class="main-top-item">
+			<view class="main-top-item" @click="toMoney">
 				<view class="money">
-					<text>{{money}}</text>元
+					<text>{{userinfo.balance}}</text>元
 				</view>
 				<view class="tip">
 					我的余额 
 				</view>
 			</view>
-			<view class="main-top-item">
+			<view class="main-top-item" @click="mydiscont">
 				<view class="sale">
-					<text>{{sale}}</text>个
+					<text>{{userinfo.gift_amount}}</text>个
 				</view>
 				<view class="tip">
 					我的优惠
@@ -38,9 +38,9 @@
 			</view>
 			<view class="main-top-item">
 				<view class="points">
-					<text>{{points}}</text>分
+					<text>{{userinfo.point}}</text>分
 				</view>
-				<view class="tip">
+				<view class="tip" @click="myPoints">
 					我的积分
 				</view>
 			</view>
@@ -64,6 +64,7 @@
 		components:{MyListItem},
 		data() {
 			return {
+				userinfo:'',
 				phoneNumber:"登录/注册",
 				h_tip:'暂无绑定手机号',
 				money:'0.00',
@@ -82,14 +83,34 @@
 					url:'/pages/pub/login/login'
 				})
 			},
-			toUserInfo(){
+			toUserInfo(avatar){
 				uni.navigateTo({
-					url:'/pages/pub/user-info/user-info'
+					url:'/pages/pub/user-info/user-info?avatar='+avatar
 				})
 			},
 			getUser(){
-				$fetch_v1_user().then(res=>{
+				$fetch_v1_user({user_id:1}).then(res=>{
 					console.log(res)
+					if(res.data.is_mobile_valid == true){
+						res.data.mobile = this.h_tip
+					}
+					res.data.avatar = 'https://elm.cangdu.org/img/'+res.data.avatar
+					this.userinfo = res.data
+				})
+			},
+			toMoney(){
+				uni.navigateTo({
+					url:'/pages/pub/my-monney/my-monney'
+				})
+			},
+			myPoints(){
+				uni.navigateTo({
+					url:'/pages/pub/my-points/my-points'
+				})
+			},
+			mydiscont(){
+				uni.navigateTo({
+					url:'/pages/pub/discount-coupon/discount-coupon'
 				})
 			}
 		}

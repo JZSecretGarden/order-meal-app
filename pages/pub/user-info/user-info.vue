@@ -2,7 +2,7 @@
 	<view class="user-info">
 		<view class="item" style="margin-top: 30upx;border-top: 1px solid #f1f1f1;background-color: #fff;position: relative;padding: 20upx 0;">
 			<ServeItem title='头像'></ServeItem>
-			<image @click="upImg" style="width: 84upx;height:84upx;border-radius: 84upx; position: absolute;top:36upx;right:80upx;" src="../../../static/home/default.jpg" mode=""></image>
+			<image @click="upImg" style="width: 84upx;height:84upx;border-radius: 84upx; position: absolute;top:36upx;right:80upx;" :src="avatar" mode=""></image>
 		</view>
 		<view class="item" style="position: relative;">
 			<ServeItem title='用户名'></ServeItem>
@@ -36,8 +36,12 @@
 		components:{ ServeItem,MyListItem },
 		data() {
 			return {
-				user_name:''
+				user_name:'',
+				avatar:''
 			}
+		},
+		onLoad(option) {
+			this.avatar = option.avatar
 		},
 		methods: {
 			upImg(){

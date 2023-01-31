@@ -244,7 +244,49 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的余额",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/pub/money-intro/money-intro",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "余额说明",
                 "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/pub/my-points/my-points",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的积分",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/pub/point-intro/point-intro",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "积分说明",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/pub/discount-coupon/discount-coupon",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的优惠",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#3190e8",
+				"navigationBarTextStyle": "white"
             }
             
         }
