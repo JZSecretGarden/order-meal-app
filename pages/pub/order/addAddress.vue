@@ -54,8 +54,7 @@
 </template>
 
 <script>
-	import {$getCityList} from '../../../apis/zjl-port.js'
-	import {$addressGetGoodAdd} from '../../../apis/zjl-port.js'
+	import {$getCityList,$addressGetGoodAdd} from '../../../apis/zjl-port.js'
 	export default {
 		data() {
 			return {
@@ -116,7 +115,7 @@
 				tag_type:tag,
 				geohash:this.$data.geohash
 			}
-			$addressGetGoodAdd(75382,params).then((res)=>{
+			$addressGetGoodAdd(1,params).then((res)=>{
 				console.log(res);
 				if(res.statusCode==200){
 					uni.navigateBack()

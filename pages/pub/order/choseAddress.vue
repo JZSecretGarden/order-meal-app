@@ -40,9 +40,15 @@
 			return {
 				name: '',
 				numindex: 0,
-				userId:2,
+				userId:1,
 				addressList:[]
 			}
+		},
+		onShow() {
+			$address_list(this.userId).then(val=>{
+				console.log(val)
+				this.addressList=val.data
+			})
 		},
 		onLoad() {
 			// $user_msg().then(val=>{

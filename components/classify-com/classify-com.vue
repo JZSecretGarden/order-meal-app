@@ -14,7 +14,7 @@
 			<view class="pop1 pop" v-show="openPopIndex==0" key="1">
 				<scroll-view scroll-y="true">
 					<view class="pop1-left-menu">
-						<view class="left-menu-item" v-for="(item,index) in classData" :key="item.id" @click="clickCommodity(item.title)">
+						<view class="left-menu-item" v-for="(item,index) in classData" :key="item.id" @click="clickCommodity(item.title,item.id)">
 							<image :src="'https://fuss10.elemecdn.com/'+item.image_url" mode="aspectFill"></image>
 							<text>{{item.title}}</text> 
 							<u-icon class="item-icon" name="arrow-right-double"></u-icon>
@@ -59,9 +59,10 @@
 </template>
 
 <script>
-	import { $food_class } from '../../apis/jz-port.js'
+	import { $food_class,$shopping_restaurants } from '../../apis/jz-port.js'
 	import { nextTick } from "vue"
 	export default {
+		props:['class_name'],
 		data() {
 			return {
 				selectText:['分类','排序','筛选'],
@@ -93,10 +94,12 @@
 			clickItem(index){	//点击分类模块元素以打开弹窗
 				this.openPopIndex == index ? this.openPopIndex=-1 : this.openPopIndex = index
 			},
-			clickCommodity(item){	//点击分类中的商品
+			clickCommodity(item,id){//点击分类中的商品
 				this.selectText[0] = item
 				this.closePop()
+				this.$emit('className',id)
 				console.log('正在刷新'+item+'的内容')
+				
 			},
 			clickSort(index,item){	//点击排序元素
 				this.selectSortIndex = index

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<classify-com></classify-com>		
+		<classify-com @className='getId'></classify-com>		
 		<view style="margin-top: 80upx;">
 			<!-- 附近商家 -->
 			<view class="shop_list_container">
@@ -65,7 +65,8 @@
 		data() {
 			return {
 				nearbyMerchants: [],
-				title:''
+				title:'',
+				restaurant_category_id:''
 			}
 		},
 		// components:{
@@ -76,7 +77,7 @@
 			console.log(11)
 			$fetch_restaurants({
 				latitude: '22',
-				longitude: '11'
+				longitude: '11',
 			}).then(res => {
 				console.log(res.data[1].piecewise_agent_fee.tips)
 				this.nearbyMerchants = res.data
@@ -87,6 +88,18 @@
 				console.log(item)
 				uni.navigateTo({
 					url:"/pages/pub/shop/shop?shop_id="+item.id
+				})
+			},
+			getId(e){
+				console.log(e)
+				this.restaurant_category_id = e
+				$fetch_restaurants({
+					latitude: '22',
+					longitude: '11',
+					restaurant_category_id:this.restaurant_category_id
+				}).then(res => {
+					console.log(res.data[1].piecewise_agent_fee.tips)
+					this.nearbyMerchants = res.data
 				})
 			}
 		}

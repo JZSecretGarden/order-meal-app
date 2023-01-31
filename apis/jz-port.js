@@ -22,3 +22,5 @@ export const $user_msg = ()=>req('v1/user','Get')
 export const $del_address = (data)=>req('v1/users/'+data.user_id+'/addresses/'+data.id,'Delete')
 //获取城市列表
 export const $city_list = (type)=>req('v1/cities?type='+type,'Get')
+// 获取商铺列表https://elm.cangdu.org/shopping/restaurants
+export const $shopping_restaurants = (params)=>req('shopping/restaurants','Get',params)

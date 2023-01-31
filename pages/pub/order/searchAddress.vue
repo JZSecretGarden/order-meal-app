@@ -31,14 +31,22 @@
 				city_id:'',
 			}
 		},
+		onLoad(){
+			console.log(1111);
+			// $getCityList({type:'guess'}).then((res)=>{
+			// 	console.log(res.data);
+			// 	this.$data.city_id=res.data.id
+			// })
+			let _this =this
+			uni.getStorage({
+				key:'city_id',
+				success(res) {
+					_this.city_id = res.data
+					console.log(res.data)
+				}
+			})
+		},
 		methods: {
-			onLoad(){
-				console.log(1111);
-				$getCityList({type:'guess'}).then((res)=>{
-					console.log(res.data);
-					this.$data.city_id=res.data.id
-				})
-			},
 			getList(){
 				let params={
 					city_id:this.$data.city_id,
