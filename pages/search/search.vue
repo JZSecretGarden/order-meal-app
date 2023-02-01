@@ -4,14 +4,14 @@
 		
 		<view class="search-box-input">
 			<u-input v-model="keyword" type="text" style="width: 70%;background-color: #f2f2f2;"
-				placeholder="请输入商家或美食名称" @focus="funcInput"/>
+				placeholder="请输入商家或美食名称" @input="funcInput"/>
 			<u-button type="primary" style="width: 20%;margin-left: 10px;" @click="FuncKeyword">提交</u-button>
 		</view>
 		<!-- 历史搜索 -->
 		<view class="search-box-result" v-show="isShow1">
 			<h4>搜索历史</h4>
 			<ul>
-				<li class="result-li" v-for="(item,i) in historyList" :key="i"
+				<li class="result-li" v-for="(item,i) in List" :key="i"
 					style="display: flex;justify-content: space-between;" @click="funcSearch(item)">
 					<view>{{item}}</view>
 					<view @click="deleteSingle(i)">×</view>
@@ -22,7 +22,7 @@
 		</view>
 
 		<!-- 搜索商家 -->
-		<view class="search-box-result" v-show="isShow3">
+		<view class="search-box-result" v-show="isShow2">
 			<h4>商家</h4>
 			<ul>
 				<li class="result-li" v-for="(item,i) in resultList" :key="i">
@@ -39,7 +39,7 @@
 		</view>
 
 		<!-- 没有搜索到商家 -->
-		<view class="no" v-show="isShow2">很抱歉！没有找到</view>
+		<view class="no" v-show="isShow3">很抱歉！没有找到</view>
 	</view>
 </template>
 
@@ -53,42 +53,63 @@
 				keyword: '',
 				historyList: [], // 初始化搜索历史
 				resultList: [], // 初始化搜索结果				
-				isShow1: true,
+				isShow1: false,
 				isShow2: false,
 				isShow3: false,
+				geohash:[],
+				List:[]
 			}
 		},
 		onLoad() {
-this.isShow1 = false
+			let _this = this
+			//获取选择城市
+			uni.getStorage({
+				key:"city",
+				success(res){
+					_this.geohash = res.data.geohash
+					
+				}
+			})
+			
 		},
 		methods: {
 			funcInput(){
-				if(this.historyList.length !== 0){
+				if(this.keyword != ''){
+					this.historyList.push(this.keyword)
 					this.isShow1 = true
 					this.isShow2 = false
 					this.isShow3 = false
-				}
-			},
-			funcSearch(v) {
-				this.isShow1 = false;
-				this.isShow3 = true;
-				let geohash = ['31.38098', '104.063049'];
-				let gg = geohash.toString()
-				
-				this.keyword = v
-				$fetch_searchrestaurants({
-					geohash: gg,
-					keyword: this.keyword
-				}).then(res => {
-					// console.log(res)
-					this.resultList = res.data
 					
-					if(res.data.message == '搜索餐馆数据失败'){
-						 this.isShow2 = true
-						 this.isShow1 = false
-						 this.isShow3 = false
-					}
+				}else{
+					this.isShow1 = false
+					this.isShow2 = false
+					this.isShow3 = false
+				}
+				
+			},
+			// 搜索历史对应 的 
+			funcSearch(v) {
+				
+				this.keyword = ''
+				let word = v
+				$fetch_searchrestaurants({
+					geohash: this.geohash,
+					keyword: word
+				}).then(res=>{
+					 if(res.data.length > 0){
+					 	this.isShow1 = false
+					 	this.isShow2 = true
+					 	this.isShow3 = false
+					 	
+					 	this.resultList = res.data
+					 }else{
+					 	
+					 	this.isShow3 = true
+					 	this.isShow1 = false
+					 	this.isShow2 = false
+					 }
 				})
+				
 
 			},
 			// 提交 
@@ -96,23 +117,38 @@ this.isShow1 = false
 				// 搜索餐馆
 				// 参数为 geohash string经纬度 keyword string关键词
 				// 点击的时候 前提是有历史搜索的话显示历史搜索  没有就显示里 显示
-
-				let geohash = ['31.38098', '104.063049'];
-				let gg = geohash.toString()
+                this.historyList.push(this.keyword)
+				let newArry =[]
+				for(let i=0;i<this.historyList.length;i++){
+					if(newArry.indexOf(this.historyList[i]) == -1){
+						newArry.push(this.historyList[i])
+					}
+				}
+				this.List = newArry
 				
+				uni.setStorage({
+					key: "historyList",
+					data: newArry
+				}) //将选择城市存储于本地
 				$fetch_searchrestaurants({
-					geohash: gg,
+					geohash: this.geohash,
 					keyword: this.keyword
 				}).then(res => {
-					// console.log(res)
-					this.resultList = res.data
-					
-					if(res.data.message == '搜索餐馆数据失败'){
-						 this.isShow2 = true
-						 this.isShow1 = false
-						 this.isShow3 = false
+					// console.log(res.data.length)
+					if(res.data.length > 0){
+						this.isShow1 = false
+						this.isShow2 = true
+						this.isShow3 = false
+						
+						this.resultList = res.data
+					}else{
+						
+						this.isShow3 = true
+						this.isShow1 = false
+						this.isShow2 = false
 					}
-
+					
+				
 				})
 
 				this.saveSearchHistory()
