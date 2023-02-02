@@ -26,10 +26,13 @@
 				<!-- 右分类 -->
 				<scroll-view scroll-y="true" class="scroll-wrap">
 					<view class="pop1-right-menu class-menu">
-						<view class="right-menu-item" v-for="(item,index) in classData[fristMenuIndex].sub_categories" @click="clickCommodity(item.name,item.id)">
-							<text>{{item.name}}</text> 
-							<u-icon class="item-icon" name="arrow-right-double"></u-icon>
+						<view class="" v-if="classData.length !== 0">
+							<view class="right-menu-item"  v-for="(item,index) in classData[fristMenuIndex].sub_categories" @click="clickCommodity(item.name,item.id)">
+								<text>{{item.name}}</text> 
+								<u-icon class="item-icon" name="arrow-right-double"></u-icon>
+							</view>
 						</view>
+						
 					</view>
 				</scroll-view>
 			</view>

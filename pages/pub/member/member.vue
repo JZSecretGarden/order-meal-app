@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="header">
-			为账户 <text>13476584673</text> 购买会员
+			为账户 <text>{{user_name}}</text> 购买会员
 		</view>
 		<view class="m-container">
 			<view class="m-title">
@@ -60,8 +60,11 @@
 		},
 		data() {
 			return {
-				
+				user_name:''
 			}
+		},
+		onLoad(option) {
+			this.user_name = option.name
 		},
 		methods: {
 			toOnlinePay(){
